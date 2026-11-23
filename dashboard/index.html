@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AeroSentinel-X | Honeywell Future Skills Edge Industrial Life-Safety Command</title>
+    <title>StrataShield-3D | Honeywell Future Skills Edge Industrial Life-Safety Command</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Three.js CDN -->
@@ -23,20 +23,18 @@
         .font-mono {
             font-family: 'JetBrains Mono', monospace;
         }
-        /* Custom scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 9999px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.5); }
         
-        /* Studio Theme Presets */
         .theme-luminary {
             --bg-canvas: #F8FAFC;
             --surface-card: #FFFFFF;
             --surface-border: rgba(226, 232, 240, 0.9);
             --text-heading: #0F172A;
             --text-muted: #64748B;
-            --accent-brand: #DC2626; /* Honeywell Red */
+            --accent-brand: #DC2626;
             --accent-glow: rgba(220, 38, 38, 0.15);
         }
         .theme-sunset {
@@ -71,21 +69,20 @@
                 <div>
                     <div class="flex items-center space-x-2">
                         <span class="text-xs uppercase tracking-wider font-extrabold text-red-600 bg-red-50 px-2 py-0.5 rounded-full border border-red-200">HONEYWELL FUTURE SKILLS EDGE</span>
-                        <span class="text-xs text-[var(--text-muted)] font-mono">NODE: AS-702-PUNE</span>
+                        <span class="text-xs text-[var(--text-muted)] font-mono">NODE: STRATASHIELD-NODE-01</span>
                     </div>
-                    <h1 class="text-lg font-bold tracking-tight">AeroSentinel-X <span class="text-sm font-normal text-[var(--text-muted)]">| Industrial Life-Safety Command</span></h1>
+                    <h1 class="text-lg font-bold tracking-tight">StrataShield-3D <span class="text-sm font-normal text-[var(--text-muted)]">| Vertical Stratification Profiler & Zero-Entry Interlock</span></h1>
                 </div>
             </div>
 
-            <!-- Header Status Badges & Controls -->
+            <!-- Header Controls -->
             <div class="flex items-center space-x-3">
-                <!-- Live Heartbeat -->
                 <div class="hidden sm:flex items-center space-x-2 px-3 py-1.5 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-card)] text-xs font-medium">
                     <span class="relative flex h-2.5 w-2.5">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
                     </span>
-                    <span class="font-mono text-emerald-600 font-semibold" id="telemetryStatus">MESH ACTIVE (10 Hz)</span>
+                    <span class="font-mono text-emerald-600 font-semibold">ESP-NOW WIRELESS MESH OK</span>
                 </div>
 
                 <!-- Theme Switcher -->
@@ -95,7 +92,6 @@
                     <button onclick="setTheme('midnight')" id="btn-midnight" class="px-2.5 py-1 rounded-lg font-medium text-slate-600 hover:text-slate-900 transition-all">Midnight</button>
                 </div>
 
-                <!-- Audio Siren Toggle -->
                 <button onclick="toggleAudio()" id="audioBtn" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-semibold shadow-sm transition-all">
                     <i data-lucide="volume-2" id="audioIcon" class="w-4 h-4 text-slate-500"></i>
                     <span id="audioText">Sound: Armed</span>
@@ -104,296 +100,206 @@
         </div>
     </header>
 
-    <!-- Main Content Container -->
     <main class="max-w-7xl mx-auto px-6 py-6 space-y-6">
 
-        <!-- Top Critical Alert Banner (Dynamic) -->
-        <div id="hazardBanner" class="p-4 rounded-2xl border transition-all duration-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-emerald-50 border-emerald-200 text-emerald-900">
-            <div class="flex items-center space-x-3">
-                <div id="hazardIconBadge" class="w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold text-lg shadow-md">
-                    <i data-lucide="shield-check" class="w-6 h-6"></i>
+        <!-- Physical Interlock Banner -->
+        <div id="interlockBanner" class="p-5 rounded-2xl border transition-all duration-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-red-50 border-red-300 text-red-950">
+            <div class="flex items-center space-x-4">
+                <div class="w-12 h-12 rounded-2xl bg-red-600 text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-red-600/30">
+                    <i data-lucide="lock" class="w-6 h-6"></i>
                 </div>
                 <div>
                     <div class="flex items-center space-x-2">
-                        <span id="hazardLevelText" class="text-xs font-extrabold tracking-wider uppercase px-2 py-0.5 rounded bg-emerald-200 text-emerald-800">LEVEL 0: NOMINAL</span>
-                        <span class="text-xs text-emerald-700 font-mono">TinyML Inference Latency: 1.14ms</span>
+                        <span class="text-xs font-extrabold tracking-wider uppercase px-2.5 py-0.5 rounded bg-red-600 text-white animate-pulse">PHYSICAL INTERLOCK: ENGAGED</span>
+                        <span class="text-xs text-red-800 font-mono">Solenoid Bolt Locked | Zero-Entry Mandate</span>
                     </div>
-                    <p id="hazardMessage" class="text-sm font-semibold mt-0.5">Atmospheric concentrations and thermal stress parameters are within OSHA/NIOSH safe occupational limits.</p>
+                    <p class="text-sm font-semibold mt-1">CHAMBER UNVERIFIED: Automated vertical descent scan required before human ingress is permitted.</p>
                 </div>
             </div>
-            <div class="flex items-center space-x-2 w-full md:w-auto justify-end">
-                <span class="text-xs font-mono text-[var(--text-muted)]">Relay Interlock:</span>
-                <span id="relayStatusBadge" class="px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-mono text-xs font-bold border border-emerald-300">DISENGAGED (OPEN)</span>
-            </div>
+            <button onclick="runAutoDescentScan()" id="btnStartScan" class="px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-md transition-all flex items-center space-x-2">
+                <i data-lucide="play" class="w-4 h-4"></i>
+                <span>Deploy Autonomous Vertical Profiler (0m to -5m)</span>
+            </button>
         </div>
 
-        <!-- Metric Cards Grid (4 Core Sensors) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            
-            <!-- CO Card -->
-            <div class="p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--surface-border)] shadow-sm hover:shadow-md transition-all">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-[var(--text-muted)] tracking-wider uppercase">Carbon Monoxide (CO)</span>
-                    <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">OSHA PEL: 50ppm</span>
-                </div>
-                <div class="mt-3 flex items-baseline space-x-2">
-                    <span id="valCO" class="text-3xl font-extrabold tracking-tight font-mono text-slate-900">4.2</span>
-                    <span class="text-sm font-medium text-[var(--text-muted)]">PPM</span>
-                </div>
-                <div class="mt-3 w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                    <div id="barCO" class="bg-emerald-500 h-full transition-all duration-300" style="width: 8.4%;"></div>
-                </div>
-                <div class="mt-2 flex justify-between text-[11px] text-[var(--text-muted)]">
-                    <span>Clean (0)</span>
-                    <span>Warning (25)</span>
-                    <span>Danger (50+)</span>
-                </div>
-            </div>
-
-            <!-- CH4 Methane Card -->
-            <div class="p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--surface-border)] shadow-sm hover:shadow-md transition-all">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-[var(--text-muted)] tracking-wider uppercase">Combustible CH4</span>
-                    <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">10% LEL: 5000ppm</span>
-                </div>
-                <div class="mt-3 flex items-baseline space-x-2">
-                    <span id="valCH4" class="text-3xl font-extrabold tracking-tight font-mono text-slate-900">420</span>
-                    <span class="text-sm font-medium text-[var(--text-muted)]">PPM</span>
-                </div>
-                <div class="mt-3 w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                    <div id="barCH4" class="bg-emerald-500 h-full transition-all duration-300" style="width: 8.4%;"></div>
-                </div>
-                <div class="mt-2 flex justify-between text-[11px] text-[var(--text-muted)]">
-                    <span>Nominal</span>
-                    <span>Warn (2000)</span>
-                    <span>Explosive (5000+)</span>
-                </div>
-            </div>
-
-            <!-- Toxic Air Quality (NH3/VOC) -->
-            <div class="p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--surface-border)] shadow-sm hover:shadow-md transition-all">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-[var(--text-muted)] tracking-wider uppercase">Toxic Air (NH3 / VOC)</span>
-                    <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">NIOSH: 25ppm</span>
-                </div>
-                <div class="mt-3 flex items-baseline space-x-2">
-                    <span id="valAQI" class="text-3xl font-extrabold tracking-tight font-mono text-slate-900">12.8</span>
-                    <span class="text-sm font-medium text-[var(--text-muted)]">PPM</span>
-                </div>
-                <div class="mt-3 w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                    <div id="barAQI" class="bg-emerald-500 h-full transition-all duration-300" style="width: 12.8%;"></div>
-                </div>
-                <div class="mt-2 flex justify-between text-[11px] text-[var(--text-muted)]">
-                    <span>Good</span>
-                    <span>Moderate (50)</span>
-                    <span>Hazardous (100+)</span>
-                </div>
-            </div>
-
-            <!-- Thermal Heat Index -->
-            <div class="p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--surface-border)] shadow-sm hover:shadow-md transition-all">
-                <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold text-[var(--text-muted)] tracking-wider uppercase">Thermal Heat Index</span>
-                    <span class="text-xs font-mono px-2 py-0.5 rounded bg-slate-100 text-slate-600 border border-slate-200">NOAA Rothfusz</span>
-                </div>
-                <div class="mt-3 flex items-baseline space-x-2">
-                    <span id="valHeatIndex" class="text-3xl font-extrabold tracking-tight font-mono text-slate-900">31.4</span>
-                    <span class="text-sm font-medium text-[var(--text-muted)]">°C</span>
-                    <span id="ambientInfo" class="text-xs text-[var(--text-muted)] font-mono ml-auto">30.2°C / 62% RH</span>
-                </div>
-                <div class="mt-3 w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                    <div id="barHeatIndex" class="bg-emerald-500 h-full transition-all duration-300" style="width: 52%;"></div>
-                </div>
-                <div class="mt-2 flex justify-between text-[11px] text-[var(--text-muted)]">
-                    <span>Normal (&lt;32)</span>
-                    <span>Caution (32-38)</span>
-                    <span>Danger (39+)</span>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- Middle Section: 3D Hardware Digital Twin & Live Telemetry Waveforms -->
+        <!-- NEW: Vertical Density Stratification Scanner Section -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             
-            <!-- 3D Hardware Digital Twin Viewer (5 cols) -->
-            <div class="lg:col-span-5 p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--surface-border)] shadow-sm flex flex-col">
-                <div class="flex items-center justify-between pb-3 border-b border-[var(--surface-border)]">
-                    <div class="flex items-center space-x-2">
-                        <i data-lucide="box" class="w-4 h-4 text-red-600"></i>
-                        <h2 class="text-sm font-bold tracking-tight">3D Hardware Digital Twin</h2>
-                    </div>
-                    <span class="text-[11px] font-mono text-[var(--text-muted)]">WebGL PBR Shading</span>
-                </div>
-
-                <!-- 3D Canvas Mount -->
-                <div class="relative flex-1 min-h-[300px] w-full mt-3 rounded-xl overflow-hidden bg-slate-900 flex items-center justify-center">
-                    <div id="threeCanvasContainer" class="w-full h-full"></div>
-                    <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] text-white font-mono flex items-center space-x-2">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400" id="threeLedIndicator"></span>
-                        <span>Drag to rotate | Scroll to zoom</span>
-                    </div>
-                </div>
-
-                <!-- Hardware Specifications Footer -->
-                <div class="mt-3 grid grid-cols-3 gap-2 text-center text-xs">
-                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">
-                        <span class="block text-[10px] text-[var(--text-muted)]">MCU Core</span>
-                        <span class="font-bold font-mono">ESP32 240MHz</span>
-                    </div>
-                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">
-                        <span class="block text-[10px] text-[var(--text-muted)]">Mesh Radio</span>
-                        <span class="font-bold font-mono">ESP-NOW / 2.4G</span>
-                    </div>
-                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">
-                        <span class="block text-[10px] text-[var(--text-muted)]">Battery Autonomy</span>
-                        <span class="font-bold font-mono">26.0 Hours</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Real-Time Telemetry Trend Chart & Injection Controls (7 cols) -->
+            <!-- Interactive Vertical Column Cross-Section (7 cols) -->
             <div class="lg:col-span-7 p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--surface-border)] shadow-sm flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between pb-3 border-b border-[var(--surface-border)]">
                         <div class="flex items-center space-x-2">
-                            <i data-lucide="activity" class="w-4 h-4 text-red-600"></i>
-                            <h2 class="text-sm font-bold tracking-tight">Real-Time Multi-Gas & Thermal Waveforms</h2>
+                            <i data-lucide="layers" class="w-4 h-4 text-red-600"></i>
+                            <h2 class="text-sm font-bold tracking-tight">Subterranean Vertical Column Stratification Scanner</h2>
                         </div>
-                        <div class="flex items-center space-x-2 text-xs">
-                            <span class="inline-flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-red-500 mr-1.5"></span>CO</span>
-                            <span class="inline-flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 mr-1.5"></span>CH4</span>
-                            <span class="inline-flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-blue-500 mr-1.5"></span>AQI</span>
-                            <span class="inline-flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 mr-1.5"></span>Heat</span>
-                        </div>
+                        <span class="text-[11px] font-mono text-[var(--text-muted)]">Fickian Density Gradient Law</span>
                     </div>
 
-                    <!-- Canvas Chart -->
-                    <div class="mt-4 h-[240px] w-full">
-                        <canvas id="telemetryChart"></canvas>
+                    <!-- Shaft Cross-Section Diagram -->
+                    <div class="mt-4 relative h-[360px] w-full bg-slate-900 rounded-xl overflow-hidden flex border border-slate-800">
+                        
+                        <!-- Depth Scale Axis -->
+                        <div class="w-14 bg-slate-950 border-r border-slate-800 flex flex-col justify-between p-2 text-[10px] font-mono text-slate-400 text-right select-none">
+                            <span>0.0m (Rim)</span>
+                            <span>-1.0m (Mouth)</span>
+                            <span>-2.0m (Mid)</span>
+                            <span>-3.2m (Chemo)</span>
+                            <span>-4.0m (Sludge)</span>
+                            <span>-5.0m (Base)</span>
+                        </div>
+
+                        <!-- Fluid Stratification Visualizer -->
+                        <div class="flex-1 relative overflow-hidden">
+                            <!-- Ceiling Methane Pocket (Amber Glow) -->
+                            <div class="absolute top-0 left-0 right-0 h-[22%] bg-gradient-to-b from-amber-500/25 to-transparent flex items-center px-4">
+                                <span class="text-[11px] font-bold text-amber-300 font-mono flex items-center space-x-1.5">
+                                    <i data-lucide="flame" class="w-3.5 h-3.5"></i>
+                                    <span>TOP DOME: CH4 Buoyancy Pocket (Density 0.55x Air)</span>
+                                </span>
+                            </div>
+
+                            <!-- Chemocline Boundary Line -->
+                            <div class="absolute top-[64%] left-0 right-0 border-b-2 border-dashed border-red-500/80 flex items-center justify-between px-4">
+                                <span class="text-[10px] uppercase tracking-wider font-extrabold bg-red-600 text-white px-2 py-0.5 rounded shadow">Chemocline Boundary (-3.2m)</span>
+                                <span class="text-[10px] font-mono text-red-300">Max dC/dz = 85.8 ppm/m</span>
+                            </div>
+
+                            <!-- Bottom Toxic H2S Pooling Layer (Red Glow) -->
+                            <div class="absolute bottom-0 left-0 right-0 h-[36%] bg-gradient-to-t from-red-600/40 via-red-900/20 to-transparent flex flex-col justify-end p-4">
+                                <span class="text-[11px] font-bold text-red-400 font-mono flex items-center space-x-1.5">
+                                    <i data-lucide="skull" class="w-3.5 h-3.5"></i>
+                                    <span>BOTTOM SLUDGE: Heavy H2S & CO2 Pooling (Density 1.18x - 1.52x)</span>
+                                </span>
+                                <span class="text-[10px] text-red-300 font-mono">Dissolved Bio-Gas Shock Risk: High</span>
+                            </div>
+
+                            <!-- Motorized Reeling Sonde (Animated) -->
+                            <div id="sondeProbe" class="absolute left-1/2 -translate-x-1/2 top-4 flex flex-col items-center transition-all duration-300 z-20">
+                                <div class="w-0.5 h-16 bg-cyan-400 shadow-sm shadow-cyan-400/50"></div>
+                                <div class="w-9 h-12 rounded-lg bg-cyan-500 border-2 border-white text-white flex flex-col items-center justify-center shadow-lg shadow-cyan-500/50">
+                                    <i data-lucide="radio" class="w-4 h-4 animate-pulse"></i>
+                                    <span class="text-[8px] font-mono font-bold">SONDE</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
-                <!-- Simulation & Fault Injection Buttons -->
-                <div class="mt-4 pt-3 border-t border-[var(--surface-border)]">
-                    <span class="text-xs font-semibold text-[var(--text-muted)] uppercase tracking-wider block mb-2">Live Industrial Fault & Hazard Injection (Test Rig)</span>
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                        <button onclick="injectHazard('co')" class="px-3 py-2 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 text-xs font-semibold transition-all flex items-center justify-center space-x-1">
-                            <i data-lucide="flame" class="w-3.5 h-3.5"></i>
-                            <span>Inject CO Surge</span>
-                        </button>
-                        <button onclick="injectHazard('ch4')" class="px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 border border-amber-200 text-xs font-semibold transition-all flex items-center justify-center space-x-1">
-                            <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i>
-                            <span>Inject Methane</span>
-                        </button>
-                        <button onclick="injectHazard('fall')" class="px-3 py-2 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 text-xs font-semibold transition-all flex items-center justify-center space-x-1">
-                            <i data-lucide="user-x" class="w-3.5 h-3.5"></i>
-                            <span>Man-Down Fall</span>
-                        </button>
-                        <button onclick="injectHazard('reset')" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 text-xs font-semibold transition-all flex items-center justify-center space-x-1">
-                            <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-                            <span>Restore Safe</span>
-                        </button>
+                <!-- Current Probe Telemetry Readouts -->
+                <div class="mt-4 grid grid-cols-4 gap-2 text-center text-xs">
+                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">
+                        <span class="block text-[10px] text-[var(--text-muted)]">Probe Depth</span>
+                        <span id="probeDepth" class="font-bold font-mono text-slate-800">0.2 m</span>
+                    </div>
+                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">
+                        <span class="block text-[10px] text-[var(--text-muted)]">H2S Lethality</span>
+                        <span id="probeH2S" class="font-bold font-mono text-emerald-600">2.1 ppm (Safe)</span>
+                    </div>
+                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">
+                        <span class="block text-[10px] text-[var(--text-muted)]">CH4 Ceiling</span>
+                        <span id="probeCH4" class="font-bold font-mono text-amber-600">4,120 ppm</span>
+                    </div>
+                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">
+                        <span class="block text-[10px] text-[var(--text-muted)]">Oxygen (O2)</span>
+                        <span id="probeO2" class="font-bold font-mono text-blue-600">20.8%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3D Hardware Digital Twin & Motorized Winch (5 cols) -->
+            <div class="lg:col-span-5 p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--surface-border)] shadow-sm flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between pb-3 border-b border-[var(--surface-border)]">
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="box" class="w-4 h-4 text-red-600"></i>
+                            <h2 class="text-sm font-bold tracking-tight">3D Sonde & Interlock Digital Twin</h2>
+                        </div>
+                        <span class="text-[11px] font-mono text-[var(--text-muted)]">WebGL PBR</span>
+                    </div>
+
+                    <div class="relative min-h-[300px] w-full mt-3 rounded-xl overflow-hidden bg-slate-900 flex items-center justify-center">
+                        <div id="threeCanvasContainer" class="w-full h-full"></div>
+                        <div class="absolute bottom-3 left-3 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md text-[10px] text-white font-mono flex items-center space-x-2">
+                            <span class="w-2 h-2 rounded-full bg-cyan-400" id="threeLedIndicator"></span>
+                            <span>Interactive Orbit View</span>
+                        </div>
                     </div>
                 </div>
 
+                <!-- Hardware Specifications -->
+                <div class="mt-4 grid grid-cols-3 gap-2 text-center text-xs">
+                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">
+                        <span class="block text-[10px] text-[var(--text-muted)]">Motor Drive</span>
+                        <span class="font-bold font-mono text-slate-800">28BYJ-48 Winch</span>
+                    </div>
+                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">
+                        <span class="block text-[10px] text-[var(--text-muted)]">Scan Speed</span>
+                        <span class="font-bold font-mono text-slate-800">5 cm/second</span>
+                    </div>
+                    <div class="p-2 rounded-lg bg-slate-50 border border-slate-100">
+                        <span class="block text-[10px] text-[var(--text-muted)]">Hardware BOM</span>
+                        <span class="font-bold font-mono text-slate-800">₹2,845 ($34)</span>
+                    </div>
+                </div>
             </div>
 
         </div>
 
-        <!-- Incident Logs & Engineering Documentation Section -->
+        <!-- Continuous Real-Time Multi-Gas Chart -->
         <div class="p-5 rounded-2xl bg-[var(--surface-card)] border border-[var(--surface-border)] shadow-sm">
             <div class="flex items-center justify-between pb-3 border-b border-[var(--surface-border)]">
                 <div class="flex items-center space-x-2">
-                    <i data-lucide="clipboard-list" class="w-4 h-4 text-red-600"></i>
-                    <h2 class="text-sm font-bold tracking-tight">Autonomous Safety Incident Log & Telemetry Audits</h2>
+                    <i data-lucide="activity" class="w-4 h-4 text-red-600"></i>
+                    <h2 class="text-sm font-bold tracking-tight">Real-Time Multi-Gas Telemetry Streams</h2>
                 </div>
-                <button onclick="exportCSV()" class="px-3 py-1.5 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-xs font-semibold text-slate-700 flex items-center space-x-1 shadow-sm">
-                    <i data-lucide="download" class="w-3.5 h-3.5"></i>
-                    <span>Export CSV Audit</span>
-                </button>
+                <div class="flex items-center space-x-3 text-xs">
+                    <span class="inline-flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-red-500 mr-1.5"></span>CO</span>
+                    <span class="inline-flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 mr-1.5"></span>CH4</span>
+                    <span class="inline-flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-purple-500 mr-1.5"></span>H2S</span>
+                    <span class="inline-flex items-center"><span class="w-2.5 h-2.5 rounded-full bg-blue-500 mr-1.5"></span>O2</span>
+                </div>
             </div>
-
-            <div class="mt-3 overflow-x-auto">
-                <table class="w-full text-left text-xs font-mono">
-                    <thead class="bg-slate-50 text-[var(--text-muted)] border-b border-slate-200 uppercase tracking-wider text-[10px]">
-                        <tr>
-                            <th class="py-2.5 px-3">Timestamp (UTC)</th>
-                            <th class="py-2.5 px-3">Node ID</th>
-                            <th class="py-2.5 px-3">Hazard Level</th>
-                            <th class="py-2.5 px-3">Trigger Metric</th>
-                            <th class="py-2.5 px-3">TinyML Score</th>
-                            <th class="py-2.5 px-3">Relay Cutoff</th>
-                            <th class="py-2.5 px-3">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="incidentTableBody" class="divide-y divide-slate-100">
-                        <tr class="hover:bg-slate-50/50">
-                            <td class="py-2 px-3 text-slate-600" id="logTime1">2026-11-24T04:20:00Z</td>
-                            <td class="py-2 px-3 font-semibold text-slate-800">AS-702-PUNE</td>
-                            <td class="py-2 px-3"><span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 font-bold">LEVEL 0 (SAFE)</span></td>
-                            <td class="py-2 px-3 text-slate-600">Baseline Calibrated</td>
-                            <td class="py-2 px-3 text-slate-600">0.082</td>
-                            <td class="py-2 px-3 text-emerald-600 font-semibold">DISENGAGED</td>
-                            <td class="py-2 px-3 text-emerald-600 font-bold">NOMINAL</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="mt-4 h-[220px] w-full">
+                <canvas id="telemetryChart"></canvas>
             </div>
         </div>
 
     </main>
 
-    <!-- Footer -->
     <footer class="max-w-7xl mx-auto px-6 py-6 text-center text-xs text-[var(--text-muted)] border-t border-[var(--surface-border)] mt-8 flex flex-col sm:flex-row items-center justify-between gap-3">
-        <div class="flex items-center space-x-2">
-            <span class="font-bold text-slate-800">AeroSentinel-X Platform</span>
+        <div>
+            <span class="font-bold text-slate-800">StrataShield-3D Platform</span>
             <span>&copy; 2026 Honeywell Technologies – Future Skills Edge Program</span>
         </div>
-        <div class="flex items-center space-x-4">
+        <div>
             <span>Student Author: <strong class="text-slate-800">Aditya Nimbalkar</strong></span>
-            <span>GitHub: <a href="https://github.com/adityanimbalkar9699-max" target="_blank" class="text-red-600 hover:underline">@adityanimbalkar9699-max</a></span>
+            <span> | GitHub: <a href="https://github.com/adityanimbalkar9699-max/aerosentinel-honeywell" target="_blank" class="text-red-600 hover:underline">@adityanimbalkar9699-max</a></span>
         </div>
     </footer>
 
-    <!-- Web Audio Siren & Telemetry Logic Scripts -->
     <script>
         lucide.createIcons();
 
-        // --- Theme Switcher ---
         function setTheme(theme) {
             document.body.className = `theme-${theme} min-h-screen bg-[var(--bg-canvas)] text-[var(--text-heading)] antialiased transition-all duration-300`;
             ['luminary', 'sunset', 'midnight'].forEach(t => {
                 const b = document.getElementById(`btn-${t}`);
-                if (t === theme) {
-                    b.className = "px-2.5 py-1 rounded-lg font-semibold bg-white shadow-sm text-slate-900 transition-all";
-                } else {
-                    b.className = "px-2.5 py-1 rounded-lg font-medium text-slate-600 hover:text-slate-900 transition-all";
-                }
+                b.className = (t === theme) ? "px-2.5 py-1 rounded-lg font-semibold bg-white shadow-sm text-slate-900 transition-all" :
+                                              "px-2.5 py-1 rounded-lg font-medium text-slate-600 hover:text-slate-900 transition-all";
             });
         }
 
-        // --- Web Audio Industrial Siren Generator ---
-        let audioCtx = null;
-        let sirenOsc = null;
-        let sirenGain = null;
-        let sirenInterval = null;
-        let audioArmed = true;
-
-        function initAudio() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-        }
-
+        // Web Audio Siren
+        let audioCtx = null, sirenOsc = null, sirenGain = null, sirenInterval = null, audioArmed = true;
+        function initAudio() { if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
         function toggleAudio() {
-            initAudio();
-            audioArmed = !audioArmed;
+            initAudio(); audioArmed = !audioArmed;
             document.getElementById('audioText').innerText = audioArmed ? "Sound: Armed" : "Sound: Muted";
             document.getElementById('audioIcon').className = audioArmed ? "w-4 h-4 text-emerald-600" : "w-4 h-4 text-slate-400";
             if (!audioArmed) stopSiren();
         }
-
         function playSiren() {
             if (!audioArmed || sirenOsc) return;
             initAudio();
@@ -404,49 +310,71 @@
             sirenOsc.connect(sirenGain);
             sirenGain.connect(audioCtx.destination);
             sirenOsc.start();
-
             let high = false;
             sirenInterval = setInterval(() => {
                 if (sirenOsc) {
-                    const targetFreq = high ? 2400 : 800;
-                    sirenOsc.frequency.exponentialRampToValueAtTime(targetFreq, audioCtx.currentTime + 0.15);
+                    sirenOsc.frequency.exponentialRampToValueAtTime(high ? 2400 : 800, audioCtx.currentTime + 0.15);
                     high = !high;
                 }
             }, 250);
         }
-
         function stopSiren() {
             if (sirenInterval) { clearInterval(sirenInterval); sirenInterval = null; }
-            if (sirenOsc) {
-                try { sirenOsc.stop(); sirenOsc.disconnect(); } catch(e) {}
-                sirenOsc = null;
-            }
+            if (sirenOsc) { try { sirenOsc.stop(); sirenOsc.disconnect(); } catch(e) {} sirenOsc = null; }
         }
 
-        // --- Telemetry State Simulation ---
-        let state = {
-            co: 4.2,
-            ch4: 420.0,
-            aqi: 12.8,
-            temp: 30.2,
-            humidity: 62.0,
-            heatIndex: 31.4,
-            hazardLevel: 0,
-            fall: false,
-            anomalyScore: 0.082
-        };
+        // Three.js Sonde Model
+        let scene, camera, renderer, sondeMesh;
+        function initThree() {
+            const container = document.getElementById('threeCanvasContainer');
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x0f172a);
+            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+            camera.position.set(0, 1.2, 3.8);
 
-        // --- Chart.js Telemetry Graph Setup ---
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+
+            const ambient = new THREE.AmbientLight(0xffffff, 0.8);
+            scene.add(ambient);
+            const dir = new THREE.DirectionalLight(0xffffff, 1.2);
+            dir.position.set(5, 10, 5);
+            scene.add(dir);
+
+            // Reeling Sonde Geometry
+            const body = new THREE.CylinderGeometry(0.5, 0.6, 1.6, 16);
+            const mat = new THREE.MeshStandardMaterial({ color: 0x06b6d4, metalness: 0.7, roughness: 0.2 });
+            sondeMesh = new THREE.Mesh(body, mat);
+            scene.add(sondeMesh);
+
+            // Top Cap & Eyelet
+            const cap = new THREE.TorusGeometry(0.2, 0.05, 8, 24);
+            const capMat = new THREE.MeshStandardMaterial({ color: 0xdc2626 });
+            const capMesh = new THREE.Mesh(cap, capMat);
+            capMesh.position.y = 0.9;
+            sondeMesh.add(capMesh);
+
+            function animate() {
+                requestAnimationFrame(animate);
+                if (sondeMesh) sondeMesh.rotation.y += 0.01;
+                renderer.render(scene, camera);
+            }
+            animate();
+        }
+        initThree();
+
+        // Chart Setup
         const ctx = document.getElementById('telemetryChart').getContext('2d');
         const telemetryChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: Array.from({length: 20}, (_, i) => `-${(20-i)*2}s`),
                 datasets: [
-                    { label: 'CO (ppm)', data: Array(20).fill(4.2), borderColor: '#EF4444', borderWidth: 2, tension: 0.3, pointRadius: 0 },
-                    { label: 'CH4 (ppm/100)', data: Array(20).fill(4.2), borderColor: '#F59E0B', borderWidth: 2, tension: 0.3, pointRadius: 0 },
-                    { label: 'AQI (ppm)', data: Array(20).fill(12.8), borderColor: '#3B82F6', borderWidth: 2, tension: 0.3, pointRadius: 0 },
-                    { label: 'Heat Index (°C)', data: Array(20).fill(31.4), borderColor: '#10B981', borderWidth: 2, tension: 0.3, pointRadius: 0 }
+                    { label: 'CO (ppm)', data: Array(20).fill(6.2), borderColor: '#EF4444', borderWidth: 2, tension: 0.3, pointRadius: 0 },
+                    { label: 'CH4 (ppm/100)', data: Array(20).fill(12.0), borderColor: '#F59E0B', borderWidth: 2, tension: 0.3, pointRadius: 0 },
+                    { label: 'H2S (ppm)', data: Array(20).fill(2.1), borderColor: '#A855F7', borderWidth: 2, tension: 0.3, pointRadius: 0 },
+                    { label: 'O2 (%)', data: Array(20).fill(20.8), borderColor: '#3B82F6', borderWidth: 2, tension: 0.3, pointRadius: 0 }
                 ]
             },
             options: {
@@ -454,240 +382,64 @@
                 maintainAspectRatio: false,
                 animation: false,
                 scales: {
-                    x: { grid: { display: false }, ticks: { font: { family: 'JetBrains Mono', size: 10 } } },
-                    y: { grid: { color: 'rgba(226, 232, 240, 0.6)' }, ticks: { font: { family: 'JetBrains Mono', size: 10 } } }
+                    x: { grid: { display: false } },
+                    y: { grid: { color: 'rgba(226, 232, 240, 0.6)' } }
                 },
                 plugins: { legend: { display: false } }
             }
         });
 
-        // --- Three.js 3D AeroSentinel Beacon Viewer ---
-        let scene, camera, renderer, beaconMesh, ledLight;
-        function initThree() {
-            const container = document.getElementById('threeCanvasContainer');
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x0f172a);
-
-            camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
-            camera.position.set(0, 1.5, 4.5);
-
-            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            container.appendChild(renderer.domElement);
-
-            // Lighting
-            const ambient = new THREE.AmbientLight(0xffffff, 0.7);
-            scene.add(ambient);
-            const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
-            dirLight.position.set(5, 10, 7);
-            scene.add(dirLight);
-
-            // Beacon Enclosure (Octagonal Polycarbonate Chassis)
-            const bodyGeo = new THREE.CylinderGeometry(1.2, 1.3, 0.8, 8);
-            const bodyMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.3, metalness: 0.6 });
-            beaconMesh = new THREE.Mesh(bodyGeo, bodyMat);
-            scene.add(beaconMesh);
-
-            // Top Bezel Ring
-            const ringGeo = new THREE.TorusGeometry(1.22, 0.08, 16, 32);
-            const ringMat = new THREE.MeshStandardMaterial({ color: 0xdc2626, metalness: 0.8, roughness: 0.2 });
-            const ring = new THREE.Mesh(ringGeo, ringMat);
-            ring.rotation.x = Math.PI / 2;
-            ring.position.y = 0.4;
-            beaconMesh.add(ring);
-
-            // Center Sensor Grill
-            const grillGeo = new THREE.CylinderGeometry(0.6, 0.6, 0.1, 32);
-            const grillMat = new THREE.MeshStandardMaterial({ color: 0x475569, metalness: 0.9, roughness: 0.1 });
-            const grill = new THREE.Mesh(grillGeo, grillMat);
-            grill.position.y = 0.42;
-            beaconMesh.add(grill);
-
-            // Status Indicator LED Ring
-            const ledGeo = new THREE.SphereGeometry(0.12, 16, 16);
-            const ledMat = new THREE.MeshBasicMaterial({ color: 0x10b981 });
-            const led = new THREE.Mesh(ledGeo, ledMat);
-            led.position.set(0.9, 0.42, 0);
-            beaconMesh.add(led);
-
-            ledLight = new THREE.PointLight(0x10b981, 2, 3);
-            ledLight.position.set(0.9, 0.6, 0);
-            beaconMesh.add(ledLight);
-
-            // Orbit drag interaction
-            let isDragging = false;
-            let prevMouseX = 0;
-            container.addEventListener('mousedown', (e) => { isDragging = true; prevMouseX = e.clientX; });
-            window.addEventListener('mouseup', () => { isDragging = false; });
-            window.addEventListener('mousemove', (e) => {
-                if (isDragging && beaconMesh) {
-                    const deltaX = e.clientX - prevMouseX;
-                    beaconMesh.rotation.y += deltaX * 0.01;
-                    prevMouseX = e.clientX;
-                }
-            });
-
-            function animate() {
-                requestAnimationFrame(animate);
-                if (!isDragging && beaconMesh) {
-                    beaconMesh.rotation.y += 0.005;
-                }
-                renderer.render(scene, camera);
-            }
-            animate();
-        }
-        initThree();
-
-        // Update 3D Beacon LED Color
-        function update3DBeacon(level) {
-            let color = 0x10b981; // Safe green
-            if (level === 2) color = 0xf59e0b; // Warning amber
-            if (level === 3) color = 0xef4444; // Critical red
-            
-            if (ledLight) {
-                ledLight.color.setHex(color);
-                ledLight.intensity = (level === 3) ? 5 : 2;
-            }
-            const ind = document.getElementById('threeLedIndicator');
-            if (ind) {
-                ind.className = (level === 3) ? 'w-2 h-2 rounded-full bg-red-500 animate-pulse' :
-                                (level === 2) ? 'w-2 h-2 rounded-full bg-amber-500' : 'w-2 h-2 rounded-full bg-emerald-400';
-            }
-        }
-
-        // --- Fault Injection Handler ---
-        function injectHazard(type) {
+        // Autonomous Vertical Descent Simulation
+        let scanActive = false;
+        function runAutoDescentScan() {
+            if (scanActive) return;
+            scanActive = true;
             initAudio();
-            if (type === 'co') {
-                state.co = 58.4;
-                state.hazardLevel = 3;
-                state.anomalyScore = 0.94;
-                logIncident("CRITICAL: Carbon Monoxide spike (58.4 PPM) exceeds OSHA PEL (50 PPM)");
-            } else if (type === 'ch4') {
-                state.ch4 = 5400.0;
-                state.hazardLevel = 3;
-                state.anomalyScore = 0.91;
-                logIncident("CRITICAL: Combustible Methane (5400 PPM) exceeds 10% LEL threshold");
-            } else if (type === 'fall') {
-                state.fall = true;
-                state.hazardLevel = 3;
-                state.anomalyScore = 0.99;
-                logIncident("CRITICAL: 6-DOF IMU detected worker impact followed by immobility (Man-Down)");
-            } else if (type === 'reset') {
-                state.co = 4.2;
-                state.ch4 = 420.0;
-                state.aqi = 12.8;
-                state.fall = false;
-                state.hazardLevel = 0;
-                state.anomalyScore = 0.082;
-                stopSiren();
-                logIncident("INFO: System restored to nominal safe baseline");
-            }
-            updateUI();
-        }
+            const probe = document.getElementById('sondeProbe');
+            const depthText = document.getElementById('probeDepth');
+            const h2sText = document.getElementById('probeH2S');
+            const ch4Text = document.getElementById('probeCH4');
+            const o2Text = document.getElementById('probeO2');
+            const btn = document.getElementById('btnStartScan');
 
-        function logIncident(desc) {
-            const tbody = document.getElementById('incidentTableBody');
-            const row = document.createElement('tr');
-            row.className = "hover:bg-slate-50/50";
-            const timeStr = new Date().toISOString().substring(11, 19);
-            const isCrit = state.hazardLevel === 3;
-            row.innerHTML = `
-                <td class="py-2 px-3 text-slate-600">${timeStr}</td>
-                <td class="py-2 px-3 font-semibold text-slate-800">AS-702-PUNE</td>
-                <td class="py-2 px-3"><span class="px-2 py-0.5 rounded ${isCrit ? 'bg-red-100 text-red-800' : 'bg-emerald-100 text-emerald-800'} font-bold">LEVEL ${state.hazardLevel}</span></td>
-                <td class="py-2 px-3 ${isCrit ? 'text-red-700 font-semibold' : 'text-slate-600'}">${desc}</td>
-                <td class="py-2 px-3 font-mono">${state.anomalyScore.toFixed(3)}</td>
-                <td class="py-2 px-3 ${isCrit ? 'text-red-600 font-bold' : 'text-emerald-600 font-semibold'}">${isCrit ? 'ACTIVATED' : 'DISENGAGED'}</td>
-                <td class="py-2 px-3 ${isCrit ? 'text-red-600 font-bold' : 'text-emerald-600 font-bold'}">${isCrit ? 'EVACUATE' : 'NOMINAL'}</td>
-            `;
-            tbody.insertBefore(row, tbody.firstChild);
-        }
+            btn.disabled = true;
+            btn.className = "px-5 py-2.5 rounded-xl bg-slate-400 text-white font-bold text-xs cursor-not-allowed";
+            btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin inline mr-1"></i> Scanning Depth Profile...`;
+            lucide.createIcons();
 
-        function updateUI() {
-            // Update Card values
-            document.getElementById('valCO').innerText = state.co.toFixed(1);
-            document.getElementById('barCO').style.width = `${Math.min(100, (state.co / 50) * 100)}%`;
-            document.getElementById('barCO').className = (state.co >= 50) ? 'bg-red-600 h-full' : (state.co >= 25) ? 'bg-amber-500 h-full' : 'bg-emerald-500 h-full';
+            let curDepth = 0.2;
+            const interval = setInterval(() => {
+                curDepth += 0.2;
+                const pct = Math.min(85, (curDepth / 5.0) * 85);
+                probe.style.top = `${pct}%`;
+                depthText.innerText = `${curDepth.toFixed(1)} m`;
 
-            document.getElementById('valCH4').innerText = state.ch4.toFixed(0);
-            document.getElementById('barCH4').style.width = `${Math.min(100, (state.ch4 / 5000) * 100)}%`;
-            document.getElementById('barCH4').className = (state.ch4 >= 5000) ? 'bg-red-600 h-full' : (state.ch4 >= 2000) ? 'bg-amber-500 h-full' : 'bg-emerald-500 h-full';
+                // Calculate Stratification Gas Levels
+                const h2s = 2.0 + (140.0 - 2.0) / (1.0 + Math.exp(-(curDepth - 3.2) / 0.4));
+                const ch4 = 800.0 + 4200.0 * Math.exp(-Math.pow(curDepth - 0.4, 2) / 1.2);
+                const o2 = 20.9 - (20.9 - 11.2) / (1.0 + Math.exp(-(curDepth - 2.8) / 0.5));
 
-            document.getElementById('valAQI').innerText = state.aqi.toFixed(1);
-            document.getElementById('barAQI').style.width = `${Math.min(100, (state.aqi / 100) * 100)}%`;
+                if (h2s >= 10.0) {
+                    h2sText.innerText = `${h2s.toFixed(1)} ppm (LETHAL IDLH)`;
+                    h2sText.className = "font-bold font-mono text-red-600 animate-pulse";
+                } else {
+                    h2sText.innerText = `${h2s.toFixed(1)} ppm (Safe)`;
+                    h2sText.className = "font-bold font-mono text-emerald-600";
+                }
 
-            document.getElementById('valHeatIndex').innerText = state.heatIndex.toFixed(1);
+                ch4Text.innerText = `${Math.round(ch4)} ppm`;
+                o2Text.innerText = `${o2.toFixed(1)}%`;
 
-            // Update Banner
-            const banner = document.getElementById('hazardBanner');
-            const levelText = document.getElementById('hazardLevelText');
-            const msg = document.getElementById('hazardMessage');
-            const relay = document.getElementById('relayStatusBadge');
-            const iconBadge = document.getElementById('hazardIconBadge');
-
-            if (state.hazardLevel === 3) {
-                banner.className = "p-4 rounded-2xl border transition-all duration-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-red-50 border-red-300 text-red-950";
-                levelText.className = "text-xs font-extrabold tracking-wider uppercase px-2 py-0.5 rounded bg-red-600 text-white animate-pulse";
-                levelText.innerText = "LEVEL 3: CRITICAL EVACUATION ALARM";
-                msg.innerText = state.fall ? "IMPACT DETECTED: Worker down in confined workspace. Autonomous rescue dispatched." :
-                                "TOXIC SURGE DETECTED: Atmospheric toxicity exceeds IDLH thresholds. Solenoid interlock engaged.";
-                relay.className = "px-2.5 py-1 rounded-lg bg-red-600 text-white font-mono text-xs font-bold border border-red-700 animate-pulse";
-                relay.innerText = "ENGAGED (CUTOFF TRIGGERED)";
-                iconBadge.className = "w-10 h-10 rounded-xl bg-red-600 text-white flex items-center justify-center font-bold text-lg shadow-md";
-                playSiren();
-            } else {
-                banner.className = "p-4 rounded-2xl border transition-all duration-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-emerald-50 border-emerald-200 text-emerald-900";
-                levelText.className = "text-xs font-extrabold tracking-wider uppercase px-2 py-0.5 rounded bg-emerald-200 text-emerald-800";
-                levelText.innerText = "LEVEL 0: NOMINAL";
-                msg.innerText = "Atmospheric concentrations and thermal stress parameters are within OSHA/NIOSH safe occupational limits.";
-                relay.className = "px-2.5 py-1 rounded-lg bg-emerald-100 text-emerald-800 font-mono text-xs font-bold border border-emerald-300";
-                relay.innerText = "DISENGAGED (OPEN)";
-                iconBadge.className = "w-10 h-10 rounded-xl bg-emerald-500 text-white flex items-center justify-center font-bold text-lg shadow-md";
-                stopSiren();
-            }
-
-            update3DBeacon(state.hazardLevel);
-        }
-
-        // --- Continuous Ambient Jitter & Waveform Stream ---
-        setInterval(() => {
-            if (state.hazardLevel === 0) {
-                // Subtle sensor jitter for realism
-                state.co = Math.max(2.0, 4.2 + (Math.random() - 0.5) * 0.8);
-                state.ch4 = Math.max(300.0, 420.0 + (Math.random() - 0.5) * 40.0);
-                state.aqi = Math.max(8.0, 12.8 + (Math.random() - 0.5) * 1.5);
-                state.heatIndex = 31.4 + (Math.random() - 0.5) * 0.4;
-            }
-
-            // Push to Chart
-            telemetryChart.data.datasets[0].data.shift();
-            telemetryChart.data.datasets[0].data.push(state.co);
-
-            telemetryChart.data.datasets[1].data.shift();
-            telemetryChart.data.datasets[1].data.push(state.ch4 / 100);
-
-            telemetryChart.data.datasets[2].data.shift();
-            telemetryChart.data.datasets[2].data.push(state.aqi);
-
-            telemetryChart.data.datasets[3].data.shift();
-            telemetryChart.data.datasets[3].data.push(state.heatIndex);
-
-            telemetryChart.update();
-            updateUI();
-        }, 1500);
-
-        // --- CSV Export ---
-        function exportCSV() {
-            let csv = "Timestamp,NodeID,HazardLevel,CO_ppm,CH4_ppm,AQI_ppm,HeatIndex_C,RelayCutoff\n";
-            csv += `${new Date().toISOString()},AS-702-PUNE,${state.hazardLevel},${state.co},${state.ch4},${state.aqi},${state.heatIndex},${state.hazardLevel === 3 ? 1 : 0}\n`;
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.setAttribute('href', url);
-            a.setAttribute('download', `AeroSentinel_Audit_${Date.now()}.csv`);
-            a.click();
+                if (curDepth >= 4.6) {
+                    clearInterval(interval);
+                    scanActive = false;
+                    playSiren();
+                    btn.disabled = false;
+                    btn.className = "px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-700 text-white font-bold text-xs shadow-md transition-all";
+                    btn.innerHTML = `<i data-lucide="refresh-cw" class="w-4 h-4 inline mr-1"></i> Rescan Column`;
+                    lucide.createIcons();
+                }
+            }, 250);
         }
     </script>
 </body>
