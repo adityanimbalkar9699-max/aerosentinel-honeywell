@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>StrataShield-3D | Honeywell Technologies – Future Skills Edge Flagship</title>
+    <title>StrataShield-3D | Industrial Life-Safety SCADA & Stratification Profiler</title>
     <!-- Sovereign Luxury Design System (SLDS) Stylesheet -->
     <link rel="stylesheet" href="tokens.css">
     <!-- Tailwind CSS CDN -->
@@ -74,6 +74,7 @@
 
         .font-mono {
             font-family: 'JetBrains Mono', 'SF Mono', monospace;
+            font-variant-numeric: tabular-nums;
         }
 
         ::-webkit-scrollbar { width: 5px; height: 5px; }
@@ -138,12 +139,32 @@
             background-color: #10B981;
             box-shadow: 0 0 8px #10B981;
         }
+
+        /* Depth range input styling */
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 9999px;
+            outline: none;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: #00E5FF;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
+            border: 2px solid #FFFFFF;
+        }
     </style>
 </head>
 <body data-studio="carbon" class="min-h-screen flex flex-col justify-between selection:bg-red-600/30 selection:text-red-200">
 
     <!-- Top Master Navigation Bar -->
-    <header class="sticky top-0 z-50 bg-[#07080B]/90 backdrop-blur-md border-b border-white/[0.07] px-6 py-3.5">
+    <header class="sticky top-0 z-50 bg-[#07080B]/90 backdrop-blur-md border-b border-white/[0.08] px-6 py-3.5">
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             
             <!-- Brand Identity -->
@@ -154,23 +175,29 @@
                 <div>
                     <div class="flex items-center space-x-2">
                         <span class="slds-telemetry-badge text-[#E30613] border-red-500/20 bg-red-950/40">
-                            HONEYWELL & BHARATCARES EDGE 2026
+                            AUTONOMOUS LIFE-SAFETY SENTINEL
                         </span>
                         <span class="slds-telemetry-badge">
                             <span class="slds-dot-pulse"></span>
-                            MESH TELEMETRY OK
+                            ESP-NOW MESH OK
                         </span>
                     </div>
                     <h1 class="text-base font-semibold tracking-tight text-[#F2F4F8] mt-0.5">
-                        StrataShield-3D <span class="text-xs font-normal text-[#9BA1B0]">| Autonomous Stratification Profiler & Zero-Entry Interlock</span>
+                        StrataShield-3D <span class="text-xs font-normal text-[#9BA1B0]">| Subterranean Gas-Stratification Profiler & Zero-Entry Interlock</span>
                     </h1>
                 </div>
             </div>
 
-            <!-- Studio Environment & Navigation -->
+            <!-- Controls & Navigation -->
             <div class="flex flex-wrap items-center gap-3">
                 
-                <!-- Multi-Environment Studio Switcher (SLDS Invariant) -->
+                <!-- Audio Siren Toggle Button (Restored & Enhanced) -->
+                <button onclick="toggleAudio()" id="audioBtn" class="flex items-center space-x-1.5 px-3 py-1.5 rounded-xl border border-white/[0.08] bg-[#101218] hover:bg-white/[0.06] text-[#F2F4F8] text-xs font-semibold shadow-sm transition-all active:scale-[0.985]">
+                    <i data-lucide="volume-2" id="audioIcon" class="w-4 h-4 text-emerald-400"></i>
+                    <span id="audioText" class="font-mono text-[11px]">Alarm: Armed</span>
+                </button>
+
+                <!-- Multi-Environment Studio Switcher -->
                 <div class="flex items-center bg-[#101218] p-1 rounded-xl border border-white/[0.08] text-[11px] font-mono">
                     <span class="text-[10px] uppercase tracking-wider text-[#7E828C] px-2 font-bold select-none">Studio:</span>
                     <button onclick="setStudioTheme('carbon')" data-studio="carbon" class="studio-pill px-2.5 py-1 rounded-lg transition-all font-semibold bg-white/10 text-white border border-white/20">Carbon</button>
@@ -178,14 +205,13 @@
                     <button onclick="setStudioTheme('sunset')" data-studio="sunset" class="studio-pill px-2.5 py-1 rounded-lg transition-all font-medium text-[#9BA1B0] hover:text-white border border-transparent">Sunset</button>
                 </div>
 
-                <!-- Master Navigation Tabs -->
+                <!-- 5 Master Industrial Tabs (No meta-audit clutter) -->
                 <div class="flex flex-wrap items-center bg-[#101218] p-1 rounded-xl border border-white/[0.08] text-xs">
                     <button onclick="switchTab('scada')" id="tab-scada" class="tab-btn active px-3 py-1.5 rounded-lg font-medium">Live SCADA</button>
                     <button onclick="switchTab('deck')" id="tab-deck" class="tab-btn px-3 py-1.5 rounded-lg font-medium">Pitch Deck</button>
                     <button onclick="switchTab('schematics')" id="tab-schematics" class="tab-btn px-3 py-1.5 rounded-lg font-medium">4K Blueprints</button>
-                    <button onclick="switchTab('bom')" id="tab-bom" class="tab-btn px-3 py-1.5 rounded-lg font-medium">BOM ($34)</button>
-                    <button onclick="switchTab('verification')" id="tab-verification" class="tab-btn px-3 py-1.5 rounded-lg font-medium">Physics Tests</button>
-                    <button onclick="switchTab('slds-audit')" id="tab-slds-audit" class="tab-btn px-3 py-1.5 rounded-lg font-medium text-amber-400">SLDS 9.86 Audit</button>
+                    <button onclick="switchTab('bom')" id="tab-bom" class="tab-btn px-3 py-1.5 rounded-lg font-medium">BOM ($34.20)</button>
+                    <button onclick="switchTab('verification')" id="tab-verification" class="tab-btn px-3 py-1.5 rounded-lg font-medium">Physics Proofs</button>
                 </div>
 
             </div>
@@ -203,21 +229,28 @@
             <!-- Hero Physical Interlock Banner -->
             <div id="interlockBanner" class="p-5 rounded-2xl border transition-all duration-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#140809] border-red-700/50 text-[#F2F4F8] shadow-lg shadow-black/40" style="box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);">
                 <div class="flex items-center space-x-4">
-                    <div class="w-11 h-11 rounded-xl bg-[#E30613] text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-red-600/30">
-                        <i data-lucide="lock" class="w-5 h-5"></i>
+                    <div id="lockIconContainer" class="w-11 h-11 rounded-xl bg-[#E30613] text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-red-600/30">
+                        <i data-lucide="lock" id="lockIcon" class="w-5 h-5"></i>
                     </div>
                     <div>
                         <div class="flex items-center space-x-2">
-                            <span class="text-[10px] font-mono font-bold tracking-wider uppercase px-2 py-0.5 rounded bg-[#E30613] text-white animate-pulse">PHYSICAL INTERLOCK: ENGAGED</span>
-                            <span class="text-xs text-red-400 font-mono">12V Solenoid Deadbolt Locked | Zero-Entry Mandate</span>
+                            <span id="lockStatusBadge" class="text-[10px] font-mono font-bold tracking-wider uppercase px-2 py-0.5 rounded bg-[#E30613] text-white animate-pulse">PHYSICAL INTERLOCK: ENGAGED</span>
+                            <span id="solenoidSubtext" class="text-xs text-red-400 font-mono">12V Solenoid Deadbolt Barred | OSHA 29 CFR 1910.146 Invariant</span>
                         </div>
-                        <p class="text-sm font-semibold mt-1 text-[#F2F4F8]">CHAMBER UNVERIFIED: Autonomous vertical descent profile required prior to human entry authorization.</p>
+                        <p id="interlockMsg" class="text-sm font-semibold mt-1 text-[#F2F4F8]">CHAMBER UNVERIFIED: Automated vertical descent profile required prior to human entry authorization.</p>
                     </div>
                 </div>
-                <button onclick="runAutoDescentScan()" id="btnStartScan" class="px-5 py-2.5 rounded-xl bg-[#E30613] hover:bg-red-700 text-white font-semibold text-xs shadow-md transition-all flex items-center space-x-2 active:scale-[0.985]" style="box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);">
-                    <i data-lucide="play" class="w-4 h-4"></i>
-                    <span>Deploy Autonomous Vertical Profiler (0m to -5m)</span>
-                </button>
+
+                <div class="flex items-center space-x-2">
+                    <button onclick="stopSiren()" id="btnSilenceAlarm" class="hidden px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs shadow-md transition-all active:scale-[0.985] flex items-center space-x-1.5">
+                        <i data-lucide="bell-off" class="w-4 h-4"></i>
+                        <span>Silence Siren</span>
+                    </button>
+                    <button onclick="runAutoDescentScan()" id="btnStartScan" class="px-5 py-2.5 rounded-xl bg-[#E30613] hover:bg-red-700 text-white font-semibold text-xs shadow-md transition-all flex items-center space-x-2 active:scale-[0.985]" style="box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);">
+                        <i data-lucide="play" class="w-4 h-4"></i>
+                        <span>Deploy Autonomous Profiler (0m to -5m)</span>
+                    </button>
+                </div>
             </div>
 
             <!-- Shaft Cross-Section & 3D Sonde Twin Grid -->
@@ -229,9 +262,9 @@
                         <div class="flex items-center justify-between pb-3 border-b border-white/[0.08]">
                             <div class="flex items-center space-x-2">
                                 <i data-lucide="layers" class="w-4 h-4 text-[#E30613]"></i>
-                                <h2 class="text-sm font-bold tracking-tight text-[#F2F4F8]">Subterranean Vertical Column Stratification Scanner</h2>
+                                <h2 class="text-sm font-bold tracking-tight text-[#F2F4F8]">Vertical Stratification Column (Fickian Density Law)</h2>
                             </div>
-                            <span class="text-[11px] font-mono text-[#00E5FF]">Fickian Density Gradient Law</span>
+                            <span id="chemoclineGradientBadge" class="text-[11px] font-mono text-[#00E5FF]">dC/dz: 1.2 ppm/m</span>
                         </div>
 
                         <!-- Shaft Visual Representation -->
@@ -257,9 +290,9 @@
                                 </div>
 
                                 <!-- Chemocline Line -->
-                                <div class="absolute top-[64%] left-0 right-0 border-b-2 border-dashed border-red-500/80 flex items-center justify-between px-4">
+                                <div class="absolute top-[64%] left-0 right-0 border-b-2 border-dashed border-red-500/80 flex items-center justify-between px-4 z-10">
                                     <span class="text-[9px] uppercase tracking-wider font-extrabold bg-[#E30613] text-white px-2 py-0.5 rounded shadow">Chemocline Toxic Boundary (-3.2m)</span>
-                                    <span class="text-[10px] font-mono text-red-300">dC/dz = 85.8 ppm/m</span>
+                                    <span class="text-[10px] font-mono text-red-300">Peak dC/dz = 85.8 ppm/m</span>
                                 </div>
 
                                 <!-- Bottom H2S Pool -->
@@ -271,7 +304,7 @@
                                 </div>
 
                                 <!-- Animated Reeling Sonde -->
-                                <div id="sondeProbe" class="absolute left-1/2 -translate-x-1/2 top-4 flex flex-col items-center transition-all duration-300 z-20">
+                                <div id="sondeProbe" class="absolute left-1/2 -translate-x-1/2 top-4 flex flex-col items-center transition-all duration-200 z-20">
                                     <div class="w-0.5 h-16 bg-[#00E5FF] shadow-sm shadow-cyan-400/50"></div>
                                     <div class="w-9 h-12 rounded-lg bg-[#101218] border-2 border-[#00E5FF] text-white flex flex-col items-center justify-center shadow-lg shadow-cyan-500/30">
                                         <i data-lucide="radio" class="w-4 h-4 text-[#00E5FF] animate-pulse"></i>
@@ -279,6 +312,18 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- Interactive Depth Manual Scrubber -->
+                        <div class="mt-4 p-3 rounded-xl slds-panel-elevated space-y-1.5">
+                            <div class="flex items-center justify-between text-xs font-mono">
+                                <span class="text-[#7E828C] flex items-center gap-1.5">
+                                    <i data-lucide="sliders" class="w-3.5 h-3.5 text-[#00E5FF]"></i>
+                                    <span>Manual Depth Scrubber:</span>
+                                </span>
+                                <span id="scrubberValueText" class="font-bold text-[#00E5FF]">0.2 m (Surface)</span>
+                            </div>
+                            <input type="range" id="depthSlider" min="0" max="5.0" step="0.1" value="0.2" oninput="onManualDepthScrub(parseFloat(this.value))">
                         </div>
                     </div>
 
@@ -329,11 +374,11 @@
                             <span class="font-bold font-mono text-[#F2F4F8]">5 cm/s</span>
                         </div>
                         <div class="p-2.5 rounded-xl slds-panel-elevated">
-                            <span class="block text-[10px] text-[#7E828C] uppercase font-mono tracking-wider">TinyML Speed</span>
+                            <span class="block text-[10px] text-[#7E828C] uppercase font-mono tracking-wider">TinyML Latency</span>
                             <span class="font-bold font-mono text-emerald-400">1.14 ms</span>
                         </div>
                         <div class="p-2.5 rounded-xl slds-panel-elevated">
-                            <span class="block text-[10px] text-[#7E828C] uppercase font-mono tracking-wider">Turnkey BOM</span>
+                            <span class="block text-[10px] text-[#7E828C] uppercase font-mono tracking-wider">Hardware Cost</span>
                             <span class="font-bold font-mono text-amber-400">₹2,845 ($34)</span>
                         </div>
                     </div>
@@ -371,7 +416,7 @@
                     <i data-lucide="presentation" class="w-5 h-5 text-[#E30613]"></i>
                     <div>
                         <h2 class="text-sm font-bold text-[#F2F4F8]">StrataShield-3D Executive Master Deck (8 Slides)</h2>
-                        <span class="text-xs text-[#9BA1B0]">Complete slide progression with integrated executive defense scripts and judge contingency protocols.</span>
+                        <span class="text-xs text-[#9BA1B0]">Complete slide progression with integrated executive defense scripts and first-principles physics.</span>
                     </div>
                 </div>
                 <a href="presentation/slides.html" target="_blank" class="px-4 py-2 rounded-xl bg-[#E30613] hover:bg-red-700 text-white font-semibold text-xs shadow-md transition-all flex items-center space-x-1.5 active:scale-[0.985]" style="box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);">
@@ -557,138 +602,13 @@
             </div>
         </div>
 
-        <!-- ================================================================== -->
-        <!-- TAB 6: SLDS METACOGNITIVE 9.86 AUDIT SCORECARD -->
-        <!-- ================================================================== -->
-        <div id="view-slds-audit" class="space-y-6 hidden">
-            <div class="p-6 rounded-2xl slds-panel space-y-5">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
-                    <div>
-                        <div class="flex items-center space-x-2">
-                            <span class="text-[10px] font-mono font-bold tracking-wider uppercase px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">SLDS MASTER STANDARD</span>
-                            <span class="text-xs font-mono text-emerald-400">10/10 ELITE PASS</span>
-                        </div>
-                        <h2 class="text-xl font-bold tracking-tight text-[#F2F4F8] mt-1">Sovereign Luxury Design System Audit & Rating Scorecard</h2>
-                        <p class="text-xs text-[#9BA1B0] mt-0.5">Audited against premier industrial benchmarks: Apple Pro, Linear, Leica, Porsche, Teenage Engineering, and Rimowa.</p>
-                    </div>
-                    <div class="text-right">
-                        <div class="text-3xl font-extrabold font-mono text-amber-400">9.86 <span class="text-sm font-normal text-[#7E828C]">/ 10.00</span></div>
-                        <span class="text-[11px] font-mono text-emerald-400 font-semibold">SURPASSES 9.5 CRITERIA</span>
-                    </div>
-                </div>
-
-                <!-- 10-Dimension Audit Table -->
-                <div class="overflow-x-auto">
-                    <table class="w-full text-xs font-mono text-left">
-                        <thead class="text-[#7E828C] border-b border-white/[0.08] uppercase text-[10px]">
-                            <tr>
-                                <th class="p-3">ID & Dimension</th>
-                                <th class="p-3">Benchmark</th>
-                                <th class="p-3">Standard AI Flaw Purged</th>
-                                <th class="p-3">SLDS Implementation</th>
-                                <th class="p-3 text-right">Score</th>
-                                <th class="p-3 text-center">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-white/[0.05] text-[#9BA1B0]">
-                            <tr>
-                                <td class="p-3 font-semibold text-[#F2F4F8]">D1: Colorimetry & Atmospheric Materiality</td>
-                                <td class="p-3 text-[#00E5FF]">Leica / Porsche / Rimowa</td>
-                                <td class="p-3 text-red-400/90">Pitch-black #000000 or generic linear purple gradients</td>
-                                <td class="p-3">Layered obsidian (#07080B, #0B0C10, #101218) simulating matte anodized aluminum</td>
-                                <td class="p-3 text-right font-bold text-amber-400">9.90 / 10.0</td>
-                                <td class="p-3 text-center text-emerald-400 font-bold">PASS</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold text-[#F2F4F8]">D2: Typographic Architecture & Optical Rhythm</td>
-                                <td class="p-3 text-[#00E5FF]">Apple Pro / Linear / Swiss Style</td>
-                                <td class="p-3 text-red-400/90">Monotonous Inter/Roboto default, uniform weights, zero tracking calibration</td>
-                                <td class="p-3">Dual-voice hierarchy: Display tight tracking (-0.04em) & uppercase monospace metadata (+0.12em)</td>
-                                <td class="p-3 text-right font-bold text-amber-400">9.80 / 10.0</td>
-                                <td class="p-3 text-center text-emerald-400 font-bold">PASS</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold text-[#F2F4F8]">D3: Spatial Geometry & Negative Space Mastery</td>
-                                <td class="p-3 text-[#00E5FF]">Balenciaga / Teenage Engineering</td>
-                                <td class="p-3 text-red-400/90">Monotonous 3-column bento grids, cramped paddings, fear of empty space</td>
-                                <td class="p-3">8pt modular spatial cadence, asymmetric 70/30 framing, museum-grade negative space</td>
-                                <td class="p-3 text-right font-bold text-amber-400">9.90 / 10.0</td>
-                                <td class="p-3 text-center text-emerald-400 font-bold">PASS</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold text-[#F2F4F8]">D4: Kinetic Physics & Micro-Interactions</td>
-                                <td class="p-3 text-[#00E5FF]">Apple iOS / Linear / Raycast</td>
-                                <td class="p-3 text-red-400/90">Gimmicky bouncing buttons (animate-bounce), sudden slide-ins, unmotivated particles</td>
-                                <td class="p-3">Weighted spring physics (cubic-bezier(0.16, 1, 0.3, 1)), tactile press states (active:scale-0.985)</td>
-                                <td class="p-3 text-right font-bold text-amber-400">9.80 / 10.0</td>
-                                <td class="p-3 text-center text-emerald-400 font-bold">PASS</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold text-[#F2F4F8]">D5: Anti-AI Purge Completeness</td>
-                                <td class="p-3 text-[#00E5FF]">Human Luxury Design Agencies</td>
-                                <td class="p-3 text-red-400/90">Pervasive statistical median templates, Dribbble glassmorphism clichés</td>
-                                <td class="p-3">Exhaustive 10-point purge matrix banning all neon glows, purple drops, and emoji bullet lists</td>
-                                <td class="p-3 text-right font-bold text-amber-400">10.00 / 10.0</td>
-                                <td class="p-3 text-center text-emerald-400 font-bold">PASS</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold text-[#F2F4F8]">D6: Universal Cross-Medium Transferability</td>
-                                <td class="p-3 text-[#00E5FF]">Awwwards / MIT Press / McKinsey</td>
-                                <td class="p-3 text-red-400/90">Web-only hacks that fail when translated to PDF, mobile, or presentation slides</td>
-                                <td class="p-3">Unified token model governing Web, SaaS Dashboards, Print PDFs, Architecture Schematics, and Pitch Decks</td>
-                                <td class="p-3 text-right font-bold text-amber-400">9.80 / 10.0</td>
-                                <td class="p-3 text-center text-emerald-400 font-bold">PASS</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold text-[#F2F4F8]">D7: Information Architecture & Telemetry Density</td>
-                                <td class="p-3 text-[#00E5FF]">Bloomberg / Teenage Engineering OP-1</td>
-                                <td class="p-3 text-red-400/90">Sparse superficial cards with zero data depth or overwhelming chaotic spreadsheets</td>
-                                <td class="p-3">Micro-telemetry badges with 5px status dots, monospaced tabular numerals, hairline boundaries</td>
-                                <td class="p-3 text-right font-bold text-amber-400">9.80 / 10.0</td>
-                                <td class="p-3 text-center text-emerald-400 font-bold">PASS</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold text-[#F2F4F8]">D8: Sensory Touch & Industrial Tactility</td>
-                                <td class="p-3 text-[#00E5FF]">Machined Aluminum / Watchmaker Horology</td>
-                                <td class="p-3 text-red-400/90">Flat ungrounded digital vectors with no sense of physical reality</td>
-                                <td class="p-3">PBR specular top-edge bevel (inset 0 1px 0 rgba(255,255,255,0.12)), Web Audio tactile haptics</td>
-                                <td class="p-3 text-right font-bold text-amber-400">9.90 / 10.0</td>
-                                <td class="p-3 text-center text-emerald-400 font-bold">PASS</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold text-[#F2F4F8]">D9: Accessibility & Optical Contrast (WCAG AAA)</td>
-                                <td class="p-3 text-[#00E5FF]">W3C WCAG 2.2 AAA / Apple a11y</td>
-                                <td class="p-3 text-red-400/90">Illegible grey-on-dark-grey text or unreadable contrast causing severe eye strain</td>
-                                <td class="p-3">Mathematically verified relative luminance contrast (Primary text 18.19:1 > 7.0:1 AAA target)</td>
-                                <td class="p-3 text-right font-bold text-amber-400">9.90 / 10.0</td>
-                                <td class="p-3 text-center text-emerald-400 font-bold">PASS</td>
-                            </tr>
-                            <tr>
-                                <td class="p-3 font-semibold text-[#F2F4F8]">D10: Executive Voice & Non-Derivative Narrative</td>
-                                <td class="p-3 text-[#00E5FF]">Apple Keynote / Leica M Manual</td>
-                                <td class="p-3 text-red-400/90">Fluffy corporate jargon ('elevate your workflow with seamless next-gen AI synergy')</td>
-                                <td class="p-3">Sparse, confident, authoritative engineering statements with exact physical metrics and zero filler</td>
-                                <td class="p-3 text-right font-bold text-amber-400">9.80 / 10.0</td>
-                                <td class="p-3 text-center text-emerald-400 font-bold">PASS</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="p-4 rounded-xl slds-panel-elevated flex items-center justify-between text-xs font-mono">
-                    <span class="text-[#F2F4F8]">Final Verification Harness: <strong class="text-emerald-400">verify_design_system.py (Exit Code: 0)</strong></span>
-                    <span class="text-[#7E828C]">Headless CDP Status: <strong class="text-[#00E5FF]">0 Runtime Exceptions</strong></span>
-                </div>
-            </div>
-        </div>
-
     </main>
 
     <!-- Footer -->
     <footer class="bg-[#07080B] border-t border-white/[0.07] px-6 py-6 text-xs text-[#7E828C]">
         <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
-                <strong class="text-[#F2F4F8]">StrataShield-3D Platform</strong> &copy; 2026 Honeywell Technologies – Future Skills Edge Program
+                <strong class="text-[#F2F4F8]">StrataShield-3D Platform</strong> &copy; 2026 Industrial Confined Space Life-Safety Sentinel
             </div>
             <div class="flex items-center space-x-4 font-mono">
                 <span>Author: <strong class="text-[#F2F4F8]">Aditya Nimbalkar</strong> (VPKBIET Pune)</span>
@@ -701,22 +621,93 @@
     <script>
         lucide.createIcons();
 
-        // Web Audio Haptic Sound Synthesizer
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        function playClickSound(freq = 800, duration = 0.03) {
+        // Web Audio System: Mechanical Relay Click + Emergency Sweep Siren
+        let audioCtx = null;
+        let sirenOsc = null;
+        let sirenGain = null;
+        let sirenInterval = null;
+        let audioArmed = true;
+
+        function initAudio() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        function playClickSound(freq = 800, duration = 0.025) {
             try {
-                if (audioCtx.state === 'suspended') audioCtx.resume();
+                initAudio();
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 osc.type = 'sine';
                 osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
                 osc.connect(gain);
                 gain.connect(audioCtx.destination);
                 osc.start();
                 osc.stop(audioCtx.currentTime + duration);
             } catch(e) {}
+        }
+
+        function toggleAudio() {
+            initAudio();
+            audioArmed = !audioArmed;
+            const btnText = document.getElementById('audioText');
+            const btnIcon = document.getElementById('audioIcon');
+            if (audioArmed) {
+                btnText.innerText = "Alarm: Armed";
+                btnIcon.setAttribute('data-lucide', 'volume-2');
+                btnIcon.className = "w-4 h-4 text-emerald-400";
+                playClickSound(1000, 0.03);
+            } else {
+                btnText.innerText = "Alarm: Muted";
+                btnIcon.setAttribute('data-lucide', 'volume-x');
+                btnIcon.className = "w-4 h-4 text-[#7E828C]";
+                stopSiren();
+            }
+            lucide.createIcons();
+        }
+
+        function playSiren() {
+            if (!audioArmed || sirenOsc) return;
+            initAudio();
+            sirenOsc = audioCtx.createOscillator();
+            sirenGain = audioCtx.createGain();
+            sirenOsc.type = 'sawtooth';
+            sirenGain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+            sirenOsc.connect(sirenGain);
+            sirenGain.connect(audioCtx.destination);
+            sirenOsc.start();
+            
+            document.getElementById('btnSilenceAlarm').classList.remove('hidden');
+
+            let high = false;
+            sirenInterval = setInterval(() => {
+                if (sirenOsc && audioCtx) {
+                    sirenOsc.frequency.exponentialRampToValueAtTime(high ? 2200 : 750, audioCtx.currentTime + 0.16);
+                    high = !high;
+                }
+            }, 260);
+        }
+
+        function stopSiren() {
+            if (sirenInterval) {
+                clearInterval(sirenInterval);
+                sirenInterval = null;
+            }
+            if (sirenOsc) {
+                try {
+                    sirenOsc.stop();
+                    sirenOsc.disconnect();
+                } catch(e) {}
+                sirenOsc = null;
+            }
+            const silenceBtn = document.getElementById('btnSilenceAlarm');
+            if (silenceBtn) silenceBtn.classList.add('hidden');
         }
 
         // Studio Environment Switcher
@@ -747,7 +738,7 @@
 
         function switchTab(tabId) {
             playClickSound(850, 0.025);
-            ['scada', 'deck', 'schematics', 'bom', 'verification', 'slds-audit'].forEach(t => {
+            ['scada', 'deck', 'schematics', 'bom', 'verification'].forEach(t => {
                 const view = document.getElementById(`view-${t}`);
                 const btn = document.getElementById(`tab-${t}`);
                 if (!view || !btn) return;
@@ -761,7 +752,75 @@
             });
         }
 
-        // Three.js Sonde Model with PBR Materials
+        // Interactive Fluid Mechanics Calculations for any Depth
+        function calculateGasAtDepth(depth) {
+            // Fickian continuous density gradient formulas verified in test_stratification_physics.py
+            const h2s = 2.0 + (140.0 - 2.0) / (1.0 + Math.exp(-(depth - 3.2) / 0.4));
+            const ch4 = 800.0 + 4200.0 * Math.exp(-Math.pow(depth - 0.4, 2) / 1.2);
+            const co = 6.0 + 24.0 * Math.exp(-Math.pow(depth - 1.5, 2) / 0.8);
+            const o2 = 20.9 - (20.9 - 11.2) / (1.0 + Math.exp(-(depth - 2.8) / 0.5));
+            
+            // Spatial derivative dC/dz
+            const dh = 0.05;
+            const h2s_plus = 2.0 + (140.0 - 2.0) / (1.0 + Math.exp(-((depth + dh) - 3.2) / 0.4));
+            const dC_dz = Math.abs(h2s_plus - h2s) / dh;
+
+            return { h2s, ch4, co, o2, dC_dz };
+        }
+
+        function updateTelemetryUI(depth) {
+            const { h2s, ch4, co, o2, dC_dz } = calculateGasAtDepth(depth);
+            
+            // Update Probe DOM position
+            const probe = document.getElementById('sondeProbe');
+            const pct = Math.min(85, (depth / 5.0) * 85);
+            probe.style.top = `${pct}%`;
+
+            // Update Labels
+            document.getElementById('probeDepth').innerText = `${depth.toFixed(1)} m`;
+            document.getElementById('scrubberValueText').innerText = `${depth.toFixed(1)} m (${depth < 1.0 ? 'Surface' : depth < 3.0 ? 'Mid-Column' : depth < 3.5 ? 'Chemocline Transition' : 'Deep Sludge Pool'})`;
+            document.getElementById('probeCH4').innerText = `${Math.round(ch4)} ppm`;
+            document.getElementById('probeO2').innerText = `${o2.toFixed(1)}%`;
+            document.getElementById('chemoclineGradientBadge').innerText = `dC/dz: ${dC_dz.toFixed(1)} ppm/m`;
+
+            const h2sText = document.getElementById('probeH2S');
+            const interlockBanner = document.getElementById('interlockBanner');
+            const lockStatusBadge = document.getElementById('lockStatusBadge');
+            const lockIcon = document.getElementById('lockIcon');
+            const lockIconContainer = document.getElementById('lockIconContainer');
+            const solenoidSubtext = document.getElementById('solenoidSubtext');
+            const interlockMsg = document.getElementById('interlockMsg');
+
+            if (h2s >= 10.0 || o2 < 19.5 || ch4 > 2500) {
+                h2sText.innerText = `${h2s.toFixed(1)} ppm (LETHAL IDLH)`;
+                h2sText.className = "font-bold font-mono text-[#E30613] animate-pulse";
+                
+                // Interlock Locked
+                interlockBanner.className = "p-5 rounded-2xl border transition-all duration-300 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 bg-[#140809] border-red-700/50 text-[#F2F4F8] shadow-lg shadow-black/40";
+                lockIconContainer.className = "w-11 h-11 rounded-xl bg-[#E30613] text-white flex items-center justify-center font-bold text-xl shadow-lg shadow-red-600/30";
+                lockStatusBadge.innerText = "PHYSICAL INTERLOCK: ENGAGED";
+                lockStatusBadge.className = "text-[10px] font-mono font-bold tracking-wider uppercase px-2 py-0.5 rounded bg-[#E30613] text-white animate-pulse";
+                solenoidSubtext.innerText = "12V Solenoid Deadbolt Barred | Zero-Entry Mandate";
+                interlockMsg.innerText = `TOXIC LAYER DETECTED AT -${depth.toFixed(1)}m: Descent is strictly prohibited. Solenoid deadbolt locked.`;
+                lockIcon.setAttribute('data-lucide', 'lock');
+                lucide.createIcons();
+                
+                if (depth >= 3.2) {
+                    playSiren();
+                }
+            } else {
+                h2sText.innerText = `${h2s.toFixed(1)} ppm (Safe)`;
+                h2sText.className = "font-bold font-mono text-emerald-400";
+            }
+        }
+
+        function onManualDepthScrub(depth) {
+            const btn = document.getElementById('btnStartScan');
+            if (scanActive) return;
+            updateTelemetryUI(depth);
+        }
+
+        // Three.js Sonde Model with PBR Shaders
         let scene, camera, renderer, sondeMesh;
         function initThree() {
             const container = document.getElementById('threeCanvasContainer');
@@ -878,41 +937,22 @@
         function runAutoDescentScan() {
             if (scanActive) return;
             scanActive = true;
+            initAudio();
             playClickSound(600, 0.08);
 
-            const probe = document.getElementById('sondeProbe');
-            const depthText = document.getElementById('probeDepth');
-            const h2sText = document.getElementById('probeH2S');
-            const ch4Text = document.getElementById('probeCH4');
-            const o2Text = document.getElementById('probeO2');
             const btn = document.getElementById('btnStartScan');
+            const slider = document.getElementById('depthSlider');
 
             btn.disabled = true;
             btn.className = "px-5 py-2.5 rounded-xl bg-slate-800 text-slate-400 font-semibold text-xs cursor-not-allowed";
-            btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin inline mr-1"></i> Reeling Sonde Down Vertical Column...`;
+            btn.innerHTML = `<i data-lucide="loader" class="w-4 h-4 animate-spin inline mr-1"></i> Reeling Sonde Down Shaft (5 cm/s)...`;
             lucide.createIcons();
 
             let curDepth = 0.2;
             const interval = setInterval(() => {
                 curDepth += 0.2;
-                const pct = Math.min(85, (curDepth / 5.0) * 85);
-                probe.style.top = `${pct}%`;
-                depthText.innerText = `${curDepth.toFixed(1)} m`;
-
-                const h2s = 2.0 + (140.0 - 2.0) / (1.0 + Math.exp(-(curDepth - 3.2) / 0.4));
-                const ch4 = 800.0 + 4200.0 * Math.exp(-Math.pow(curDepth - 0.4, 2) / 1.2);
-                const o2 = 20.9 - (20.9 - 11.2) / (1.0 + Math.exp(-(curDepth - 2.8) / 0.5));
-
-                if (h2s >= 10.0) {
-                    h2sText.innerText = `${h2s.toFixed(1)} ppm (LETHAL IDLH)`;
-                    h2sText.className = "font-bold font-mono text-red-500 animate-pulse";
-                } else {
-                    h2sText.innerText = `${h2s.toFixed(1)} ppm (Safe)`;
-                    h2sText.className = "font-bold font-mono text-emerald-400";
-                }
-
-                ch4Text.innerText = `${Math.round(ch4)} ppm`;
-                o2Text.innerText = `${o2.toFixed(1)}%`;
+                slider.value = curDepth.toFixed(1);
+                updateTelemetryUI(curDepth);
 
                 if (curDepth >= 4.6) {
                     clearInterval(interval);
@@ -921,7 +961,6 @@
                     btn.className = "px-5 py-2.5 rounded-xl bg-[#E30613] hover:bg-red-700 text-white font-semibold text-xs shadow-md transition-all active:scale-[0.985]";
                     btn.innerHTML = `<i data-lucide="refresh-cw" class="w-4 h-4 inline mr-1"></i> Rescan Vertical Column`;
                     lucide.createIcons();
-                    playClickSound(1200, 0.1);
                 }
             }, 250);
         }
