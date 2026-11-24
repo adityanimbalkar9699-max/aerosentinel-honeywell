@@ -2,7 +2,7 @@
 ### From Raw Real-World Observation to Physical Working Model
 
 > **Project Author:** Aditya Nimbalkar  
-> **Institution:** Vidya Pratishthan's Kamalnayan Bajaj Institute of Engineering & Technology (VPKBIET), Baramati, Pune  
+> **Lead Engineer & System Builder:** Aditya Nimbalkar (B.Tech AI & Data Science)  
 > **Program:** Honeywell Technologies – Future Skills Edge Program (Partner: BharatCares)  
 > **Authenticity Rating:** **100% Self-Generated | Zero-Plagiarism Certified**  
 
