@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>StrataShield-3D | Honeywell Future Skills Edge Executive Master Deck</title>
+    <!-- Sovereign Luxury Design System (SLDS) Stylesheet -->
+    <link rel="stylesheet" href="tokens.css">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons -->
@@ -12,18 +14,46 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --slds-bg-canvas: #07080B;
+            --slds-bg-base: #0B0C10;
+            --slds-bg-elevated: #101218;
+            --slds-border-default: rgba(255, 255, 255, 0.08);
+            --slds-border-subtle: rgba(255, 255, 255, 0.05);
+            --slds-specular-top: inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+            --slds-text-primary: #F2F4F8;
+            --slds-text-secondary: #9BA1B0;
+            --slds-text-tertiary: #7E828C;
+            --slds-accent-leica: #E30613;
+            --slds-ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
         body {
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #070B14;
-            color: #F8FAFC;
+            background-color: var(--slds-bg-canvas);
+            color: var(--slds-text-primary);
+            -webkit-font-smoothing: antialiased;
         }
         .font-mono {
-            font-family: 'JetBrains Mono', monospace;
+            font-family: 'JetBrains Mono', 'SF Mono', monospace;
+        }
+        .slds-card {
+            background-color: var(--slds-bg-base);
+            border: 1px solid var(--slds-border-default);
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5), var(--slds-specular-top);
+            border-radius: 14px;
+            transition: all 0.25s var(--slds-ease-spring);
+        }
+        .slds-card-elevated {
+            background-color: var(--slds-bg-elevated);
+            border: 1px solid var(--slds-border-default);
+            box-shadow: 0 8px 30px -4px rgba(0, 0, 0, 0.6), var(--slds-specular-top);
+            border-radius: 12px;
         }
         .slide {
             display: none;
             min-height: calc(100vh - 80px);
-            animation: fadeIn 0.35s ease-out forwards;
+            animation: fadeIn 0.35s var(--slds-ease-spring) forwards;
         }
         .slide.active {
             display: flex;
@@ -36,51 +66,53 @@
             body { background: #FFFFFF !important; color: #000000 !important; }
             header, footer, .no-print { display: none !important; }
             .slide { display: flex !important; page-break-after: always; min-height: 100vh; padding: 2rem !important; }
-            .print-border { border: 1px solid #E2E8F0 !important; }
+            .slds-card { background: #FFFFFF !important; border: 1px solid #E2E8F0 !important; box-shadow: none !important; color: #000000 !important; }
+            .text-white, .text-\[\#F2F4F8\] { color: #000000 !important; }
+            .text-slate-400, .text-\[\#9BA1B0\] { color: #475569 !important; }
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between selection:bg-red-500/30 selection:text-red-200">
 
     <!-- Top Executive Navigation Bar -->
-    <header class="no-print sticky top-0 z-50 bg-[#0B0F19]/90 backdrop-blur-md border-b border-slate-800/80 px-6 py-3.5">
+    <header class="no-print sticky top-0 z-50 bg-[#07080B]/90 backdrop-blur-md border-b border-white/[0.08] px-6 py-3.5">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
             <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white shadow-md shadow-red-600/30 font-bold">
+                <div class="w-8 h-8 rounded-lg bg-[#E30613] flex items-center justify-center text-white shadow-md shadow-red-600/30 font-bold">
                     <i data-lucide="shield-alert" class="w-4 h-4"></i>
                 </div>
                 <div>
                     <span class="text-[10px] font-mono tracking-wider uppercase text-red-400 font-extrabold">HONEYWELL TECHNOLOGIES & BHARATCARES</span>
-                    <h1 class="text-sm font-bold tracking-tight text-slate-100">StrataShield-3D <span class="text-xs font-normal text-slate-400">| Executive Defense Deck</span></h1>
+                    <h1 class="text-sm font-semibold tracking-tight text-[#F2F4F8]">StrataShield-3D <span class="text-xs font-normal text-[#9BA1B0]">| Executive Defense Deck</span></h1>
                 </div>
             </div>
 
             <!-- Slide Navigation Controls -->
             <div class="flex items-center space-x-4">
-                <div class="text-xs font-mono text-slate-400">
-                    Slide <span id="currentSlideNum" class="text-white font-bold">01</span> / <span id="totalSlidesNum">10</span>
+                <div class="text-xs font-mono text-[#9BA1B0]">
+                    Slide <span id="currentSlideNum" class="text-[#F2F4F8] font-bold">01</span> / <span id="totalSlidesNum">10</span>
                 </div>
-                <div class="flex items-center space-x-1.5 bg-slate-900 border border-slate-800 p-1 rounded-xl">
-                    <button onclick="prevSlide()" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition-all">
+                <div class="flex items-center space-x-1.5 bg-[#101218] border border-white/[0.08] p-1 rounded-xl">
+                    <button onclick="prevSlide()" class="p-1.5 rounded-lg hover:bg-white/[0.06] text-[#9BA1B0] hover:text-white transition-all active:scale-[0.985]">
                         <i data-lucide="chevron-left" class="w-4 h-4"></i>
                     </button>
-                    <button onclick="nextSlide()" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition-all">
+                    <button onclick="nextSlide()" class="p-1.5 rounded-lg hover:bg-white/[0.06] text-[#9BA1B0] hover:text-white transition-all active:scale-[0.985]">
                         <i data-lucide="chevron-right" class="w-4 h-4"></i>
                     </button>
                 </div>
-                <button onclick="toggleSpeakerNotes()" id="btnNotes" class="px-3 py-1.5 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 flex items-center space-x-1.5 transition-all">
-                    <i data-lucide="mic" class="w-3.5 h-3.5 text-cyan-400"></i>
+                <button onclick="toggleSpeakerNotes()" id="btnNotes" class="px-3 py-1.5 rounded-xl border border-white/[0.08] bg-[#101218] hover:bg-white/[0.06] text-xs font-semibold text-[#F2F4F8] flex items-center space-x-1.5 transition-all active:scale-[0.985]">
+                    <i data-lucide="mic" class="w-3.5 h-3.5 text-[#00E5FF]"></i>
                     <span id="notesBtnText">Speaker Script</span>
                 </button>
-                <button onclick="window.print()" class="px-3 py-1.5 rounded-xl bg-red-600 hover:bg-red-700 text-xs font-bold text-white shadow-sm transition-all flex items-center space-x-1">
+                <button onclick="window.print()" class="px-3 py-1.5 rounded-xl bg-[#E30613] hover:bg-red-700 text-xs font-bold text-white shadow-sm transition-all flex items-center space-x-1 active:scale-[0.985]" style="box-shadow: inset 0 1px 0 rgba(255,255,255,0.25);">
                     <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
                     <span>Export PDF</span>
                 </button>
             </div>
         </div>
         <!-- Progress Bar -->
-        <div class="w-full bg-slate-900 h-0.5 mt-2">
-            <div id="deckProgressBar" class="bg-red-600 h-full transition-all duration-300" style="width: 10%;"></div>
+        <div class="w-full bg-[#101218] h-0.5 mt-2">
+            <div id="deckProgressBar" class="bg-[#E30613] h-full transition-all duration-300" style="width: 10%;"></div>
         </div>
     </header>
 
@@ -96,36 +128,36 @@
                 <span>Honeywell Technologies – Future Skills Edge Flagship Prototype</span>
             </div>
             
-            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-white max-w-4xl leading-[1.1]">
+            <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight text-[#F2F4F8] max-w-4xl leading-[1.1]">
                 StrataShield-3D
             </h1>
             
-            <p class="text-lg sm:text-xl text-slate-400 max-w-3xl font-light leading-relaxed">
+            <p class="text-lg sm:text-xl text-[#9BA1B0] max-w-3xl font-light leading-relaxed">
                 Autonomous Vertical Gas-Stratification Profiler & Physical Zero-Entry Interlock Sentinel for Confined Industrial Chambers & Municipal Sump Networks.
             </p>
 
             <!-- Key Metric Ribbons -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-4xl w-full pt-6">
-                <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 text-center">
-                    <span class="block text-2xl sm:text-3xl font-extrabold font-mono text-cyan-400">1.14 ms</span>
-                    <span class="text-xs text-slate-400 uppercase font-semibold tracking-wider">TinyML Inference</span>
+                <div class="p-4 rounded-2xl slds-card text-center">
+                    <span class="block text-2xl sm:text-3xl font-extrabold font-mono text-[#00E5FF]">1.14 ms</span>
+                    <span class="text-xs text-[#9BA1B0] uppercase font-semibold tracking-wider font-mono">TinyML Latency</span>
                 </div>
-                <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 text-center">
+                <div class="p-4 rounded-2xl slds-card text-center">
                     <span class="block text-2xl sm:text-3xl font-extrabold font-mono text-emerald-400">0 ms</span>
-                    <span class="text-xs text-slate-400 uppercase font-semibold tracking-wider">Cloud Dependency</span>
+                    <span class="text-xs text-[#9BA1B0] uppercase font-semibold tracking-wider font-mono">Cloud Dependency</span>
                 </div>
-                <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 text-center">
+                <div class="p-4 rounded-2xl slds-card text-center">
                     <span class="block text-2xl sm:text-3xl font-extrabold font-mono text-amber-400">₹2,845</span>
-                    <span class="text-xs text-slate-400 uppercase font-semibold tracking-wider">Total BOM (1/18th Cost)</span>
+                    <span class="text-xs text-[#9BA1B0] uppercase font-semibold tracking-wider font-mono">Total BOM (1/18th)</span>
                 </div>
-                <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 text-center">
-                    <span class="block text-2xl sm:text-3xl font-extrabold font-mono text-red-500">&lt; 25 ms</span>
-                    <span class="text-xs text-slate-400 uppercase font-semibold tracking-wider">Hardware Cutoff</span>
+                <div class="p-4 rounded-2xl slds-card text-center">
+                    <span class="block text-2xl sm:text-3xl font-extrabold font-mono text-[#E30613]">&lt; 25 ms</span>
+                    <span class="text-xs text-[#9BA1B0] uppercase font-semibold tracking-wider font-mono">Hardware Cutoff</span>
                 </div>
             </div>
 
-            <div class="pt-4 text-xs font-mono text-slate-400">
-                Author: <strong class="text-slate-200">Aditya Nimbalkar</strong> | VPKBIET Baramati, Pune | AI & Data Science
+            <div class="pt-4 text-xs font-mono text-[#7E828C]">
+                Author: <strong class="text-[#F2F4F8]">Aditya Nimbalkar</strong> | VPKBIET Baramati, Pune | AI & Data Science
             </div>
         </section>
 
@@ -135,37 +167,37 @@
         <section class="slide flex-col justify-center space-y-6" data-slide="2">
             <div>
                 <span class="text-xs font-mono text-red-400 font-extrabold uppercase tracking-wider">01 / THE HUMANITARIAN CRISIS</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">The Fatal Reality of Confined Spaces in India</h2>
-                <p class="text-sm text-slate-400 mt-1">Why hundreds of sanitation and chemical plant workers lose their lives annually despite existing laws.</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#F2F4F8] tracking-tight mt-1">The Fatal Reality of Confined Spaces in India</h2>
+                <p class="text-sm text-[#9BA1B0] mt-1">Why hundreds of sanitation and chemical plant workers lose their lives annually despite existing statutory bans.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-                <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+                <div class="p-6 rounded-2xl slds-card space-y-3">
                     <div class="w-10 h-10 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center font-bold">
                         <i data-lucide="skull" class="w-5 h-5"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white">80%+ Sudden Asphyxiation</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        The majority of deaths in sewer manholes and industrial chemical sumps are caused by acute inhalation of Hydrogen Sulfide ($H_2S$) and Carbon Monoxide ($CO$).
+                    <h3 class="text-lg font-bold text-[#F2F4F8]">80%+ Sudden Asphyxiation</h3>
+                    <p class="text-xs text-[#9BA1B0] leading-relaxed">
+                        The overwhelming majority of fatalities in sewer manholes and industrial chemical sumps are caused by acute inhalation of Hydrogen Sulfide ($H_2S$) and Carbon Monoxide ($CO$).
                     </p>
                 </div>
 
-                <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+                <div class="p-6 rounded-2xl slds-card space-y-3">
                     <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
                         <i data-lucide="eye-off" class="w-5 h-5"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white">Olfactory Nerve Paralysis</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
+                    <h3 class="text-lg font-bold text-[#F2F4F8]">Olfactory Nerve Paralysis</h3>
+                    <p class="text-xs text-[#9BA1B0] leading-relaxed">
                         At dangerous concentrations ($>100\text{ ppm}$), $H_2S$ instantly destroys the human sense of smell. Workers smell nothing, assume the chamber is clean, inhale once, and collapse.
                     </p>
                 </div>
 
-                <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+                <div class="p-6 rounded-2xl slds-card space-y-3">
                     <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold">
                         <i data-lucide="dollar-sign" class="w-5 h-5"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white">Prohibitive Enterprise Cost</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
+                    <h3 class="text-lg font-bold text-[#F2F4F8]">Prohibitive Enterprise Cost</h3>
+                    <p class="text-xs text-[#9BA1B0] leading-relaxed">
                         Commercial gas detection equipment from multinational vendors costs ₹50,000 to ₹1,50,000+ per unit—an impossible expense for Indian municipal contractors and MSMEs.
                     </p>
                 </div>
@@ -182,17 +214,17 @@
         <!-- ================================================================== -->
         <section class="slide flex-col justify-center space-y-6" data-slide="3">
             <div>
-                <span class="text-xs font-mono text-cyan-400 font-extrabold uppercase tracking-wider">02 / FIRST-PRINCIPLES PHYSICS</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">The Invisible Trap: Vertical Density Stratification</h2>
-                <p class="text-sm text-slate-400 mt-1">Gases in stagnant vertical chambers do not mix. Gravity and buoyancy partition them into deadly layers.</p>
+                <span class="text-xs font-mono text-[#00E5FF] font-extrabold uppercase tracking-wider">02 / FIRST-PRINCIPLES PHYSICS</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#F2F4F8] tracking-tight mt-1">The Invisible Trap: Vertical Density Stratification</h2>
+                <p class="text-sm text-[#9BA1B0] mt-1">Gases in stagnant vertical chambers do not mix. Gravity and buoyancy partition them into deadly layers.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
                 <!-- Mathematical Formulation Table -->
-                <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
-                    <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">Molar Mass & Vapor Density Hierarchy</h3>
+                <div class="p-5 rounded-2xl slds-card space-y-3">
+                    <h3 class="text-sm font-bold text-[#F2F4F8] font-mono uppercase tracking-wider">Molar Mass & Vapor Density Hierarchy</h3>
                     <table class="w-full text-xs font-mono text-left">
-                        <thead class="text-slate-400 border-b border-slate-800">
+                        <thead class="text-[#7E828C] border-b border-white/[0.08]">
                             <tr>
                                 <th class="pb-2">Gas Species</th>
                                 <th class="pb-2">Molar Mass</th>
@@ -200,27 +232,27 @@
                                 <th class="pb-2">Physical Shaft Trapping</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                        <tbody class="divide-y divide-white/[0.05] text-[#9BA1B0]">
                             <tr>
                                 <td class="py-2.5 font-bold text-amber-400">Methane (CH4)</td>
                                 <td class="py-2.5">16.04 g/mol</td>
                                 <td class="py-2.5 text-amber-400">0.55x (Lighter)</td>
-                                <td class="py-2.5 text-slate-400">Rises to Ceiling Dome</td>
+                                <td class="py-2.5 text-[#7E828C]">Rises to Ceiling Dome</td>
                             </tr>
                             <tr>
-                                <td class="py-2.5 font-bold text-slate-200">Ambient Air</td>
+                                <td class="py-2.5 font-bold text-[#F2F4F8]">Ambient Air</td>
                                 <td class="py-2.5">28.97 g/mol</td>
-                                <td class="py-2.5 text-slate-400">1.00x (Baseline)</td>
-                                <td class="py-2.5 text-slate-400">Circulates at Opening</td>
+                                <td class="py-2.5 text-[#7E828C]">1.00x (Baseline)</td>
+                                <td class="py-2.5 text-[#7E828C]">Circulates at Opening</td>
                             </tr>
                             <tr>
                                 <td class="py-2.5 font-bold text-blue-400">Carbon Monoxide</td>
                                 <td class="py-2.5">28.01 g/mol</td>
                                 <td class="py-2.5 text-blue-400">0.97x (Neutral)</td>
-                                <td class="py-2.5 text-slate-400">Chest / Breathing Level</td>
+                                <td class="py-2.5 text-[#7E828C]">Chest / Breathing Level</td>
                             </tr>
                             <tr>
-                                <td class="py-2.5 font-bold text-red-500">Hydrogen Sulfide</td>
+                                <td class="py-2.5 font-bold text-[#E30613]">Hydrogen Sulfide</td>
                                 <td class="py-2.5">34.08 g/mol</td>
                                 <td class="py-2.5 text-red-400 font-bold">1.18x (Heavier)</td>
                                 <td class="py-2.5 text-red-400 font-bold">Sinks into Bottom 1m</td>
@@ -230,17 +262,17 @@
                 </div>
 
                 <!-- Empirical Disparity Demonstration -->
-                <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
-                    <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">Live Simulation Proof (test_stratification_physics.py)</h3>
+                <div class="p-5 rounded-2xl slds-card space-y-4">
+                    <h3 class="text-sm font-bold text-[#F2F4F8] font-mono uppercase tracking-wider">Live Simulation Proof (test_stratification_physics.py)</h3>
                     <div class="p-3.5 rounded-xl bg-emerald-950/40 border border-emerald-800/60">
                         <span class="block text-xs font-mono font-bold text-emerald-400">SURFACE LEVEL (z = 0.2m):</span>
-                        <p class="text-xs text-slate-300 font-mono mt-0.5">H2S = 2.1 ppm | O2 = 20.8% | State: <strong class="text-emerald-400">"DECEPTIVE SAFE"</strong></p>
+                        <p class="text-xs text-[#9BA1B0] font-mono mt-0.5">H2S = 2.1 ppm | O2 = 20.8% | State: <strong class="text-emerald-400">"DECEPTIVE SAFE"</strong></p>
                     </div>
                     <div class="p-3.5 rounded-xl bg-red-950/40 border border-red-800/60">
                         <span class="block text-xs font-mono font-bold text-red-400">DEEP SLUDGE LEVEL (z = 4.2m):</span>
-                        <p class="text-xs text-slate-300 font-mono mt-0.5">H2S = 123.5 ppm | O2 = 12.0% | State: <strong class="text-red-400 animate-pulse">"ACUTELY LETHAL IDLH"</strong></p>
+                        <p class="text-xs text-[#9BA1B0] font-mono mt-0.5">H2S = 123.5 ppm | O2 = 12.0% | State: <strong class="text-red-400 animate-pulse">"ACUTELY LETHAL IDLH"</strong></p>
                     </div>
-                    <p class="text-xs text-slate-400 leading-relaxed">
+                    <p class="text-xs text-[#9BA1B0] leading-relaxed">
                         A single sensor test at the opening is worthless. The lethal gas is hiding below the invisible <strong>Chemocline boundary</strong> at -3.2 meters!
                     </p>
                 </div>
@@ -253,46 +285,46 @@
         <section class="slide flex-col justify-center space-y-6" data-slide="4">
             <div>
                 <span class="text-xs font-mono text-amber-400 font-extrabold uppercase tracking-wider">03 / PRIOR ART FORENSICS</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">Why Existing Market & Hackathon Approaches Fail</h2>
-                <p class="text-sm text-slate-400 mt-1">Comparing generic solutions against the real physical constraints of confined spaces.</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#F2F4F8] tracking-tight mt-1">Why Existing Market & Hackathon Approaches Fail</h2>
+                <p class="text-sm text-[#9BA1B0] mt-1">Comparing generic solutions against the real physical constraints of confined spaces.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                <div class="p-5 rounded-2xl slds-card flex flex-col justify-between">
                     <div>
                         <span class="text-xs font-mono text-red-400 font-bold block mb-2">FLAW 1: THE SMART HELMET</span>
-                        <h3 class="text-base font-bold text-white mb-2">Passive Detection Too Late</h3>
-                        <p class="text-xs text-slate-400 leading-relaxed">
+                        <h3 class="text-base font-bold text-[#F2F4F8] mb-2">Passive Detection Too Late</h3>
+                        <p class="text-xs text-[#9BA1B0] leading-relaxed">
                             Placing a sensor on a worker's helmet means the sensor only detects toxic gas when the worker has <em>already descended into the lethal stratum</em>. At $>100\text{ ppm}$ $H_2S$, the worker collapses before hearing the buzzer.
                         </p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-red-400">
+                    <div class="mt-4 pt-3 border-t border-white/[0.08] text-[11px] font-mono text-red-400">
                         Verdict: Rejects Root Cause
                     </div>
                 </div>
 
-                <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                <div class="p-5 rounded-2xl slds-card flex flex-col justify-between">
                     <div>
                         <span class="text-xs font-mono text-red-400 font-bold block mb-2">FLAW 2: CLOUD-DEPENDENT IOT</span>
-                        <h3 class="text-base font-bold text-white mb-2">Underground Faraday Cages</h3>
-                        <p class="text-xs text-slate-400 leading-relaxed">
+                        <h3 class="text-base font-bold text-[#F2F4F8] mb-2">Underground Faraday Cages</h3>
+                        <p class="text-xs text-[#9BA1B0] leading-relaxed">
                             Cast-iron manhole rims and thick reinforced concrete sumps attenuate 2.4GHz Wi-Fi and 4G by over 40 dB. When a worker is inside, cloud-based telemetry disconnects, causing silent failure.
                         </p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-red-400">
+                    <div class="mt-4 pt-3 border-t border-white/[0.08] text-[11px] font-mono text-red-400">
                         Verdict: Fatal Connectivity Blindspot
                     </div>
                 </div>
 
-                <div class="p-5 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                <div class="p-5 rounded-2xl slds-card flex flex-col justify-between">
                     <div>
                         <span class="text-xs font-mono text-red-400 font-bold block mb-2">FLAW 3: SLUDGE DISTURBANCE</span>
-                        <h3 class="text-base font-bold text-white mb-2">Unpredicted Sediment Shock</h3>
-                        <p class="text-xs text-slate-400 leading-relaxed">
+                        <h3 class="text-base font-bold text-[#F2F4F8] mb-2">Unpredicted Sediment Shock</h3>
+                        <p class="text-xs text-[#9BA1B0] leading-relaxed">
                             Static air testers miss dissolved bio-gas trapped inside anaerobic thixotropic sludge. When a worker steps on the sediment, their boots release a massive toxic surge in 2 seconds.
                         </p>
                     </div>
-                    <div class="mt-4 pt-3 border-t border-slate-800 text-[11px] font-mono text-red-400">
+                    <div class="mt-4 pt-3 border-t border-white/[0.08] text-[11px] font-mono text-red-400">
                         Verdict: Zero Sediment Pre-Probing
                     </div>
                 </div>
@@ -304,16 +336,16 @@
         <!-- ================================================================== -->
         <section class="slide flex-col justify-center space-y-6" data-slide="5">
             <div>
-                <span class="text-xs font-mono text-cyan-400 font-extrabold uppercase tracking-wider">04 / THE SYSTEM ARCHITECTURE</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">StrataShield-3D: The 4-Layer Engineering Pipeline</h2>
-                <p class="text-sm text-slate-400 mt-1">Autonomous micro-reeling, edge TinyML calculus, and fail-safe mechanical actuation.</p>
+                <span class="text-xs font-mono text-[#00E5FF] font-extrabold uppercase tracking-wider">04 / THE SYSTEM ARCHITECTURE</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#F2F4F8] tracking-tight mt-1">StrataShield-3D: The 4-Layer Engineering Pipeline</h2>
+                <p class="text-sm text-[#9BA1B0] mt-1">Autonomous micro-reeling, edge TinyML calculus, and fail-safe mechanical actuation.</p>
             </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="p-5 rounded-2xl bg-slate-900/80 border border-cyan-500/30">
-                    <span class="text-xs font-mono text-cyan-400 font-bold">LAYER 1</span>
-                    <h3 class="text-base font-bold text-white mt-1">Automated Sonde</h3>
-                    <ul class="mt-3 space-y-2 text-xs text-slate-400 font-mono">
+                <div class="p-5 rounded-2xl slds-card">
+                    <span class="text-xs font-mono text-[#00E5FF] font-bold">LAYER 1</span>
+                    <h3 class="text-base font-bold text-[#F2F4F8] mt-1">Automated Sonde</h3>
+                    <ul class="mt-3 space-y-2 text-xs text-[#9BA1B0] font-mono">
                         <li>• 28BYJ-48 Stepper Winch</li>
                         <li>• Controlled 5 cm/s descent</li>
                         <li>• MQ-136, MQ-4, MQ-7</li>
@@ -321,10 +353,10 @@
                     </ul>
                 </div>
 
-                <div class="p-5 rounded-2xl bg-slate-900/80 border border-blue-500/30">
+                <div class="p-5 rounded-2xl slds-card">
                     <span class="text-xs font-mono text-blue-400 font-bold">LAYER 2</span>
-                    <h3 class="text-base font-bold text-white mt-1">TinyML Dual-Core</h3>
-                    <ul class="mt-3 space-y-2 text-xs text-slate-400 font-mono">
+                    <h3 class="text-base font-bold text-[#F2F4F8] mt-1">TinyML Dual-Core</h3>
+                    <ul class="mt-3 space-y-2 text-xs text-[#9BA1B0] font-mono">
                         <li>• ESP32 Core 0 (16x ADC)</li>
                         <li>• Chemocline dC/dz Calculus</li>
                         <li>• NOAA Heat Index Model</li>
@@ -332,10 +364,10 @@
                     </ul>
                 </div>
 
-                <div class="p-5 rounded-2xl bg-slate-900/80 border border-emerald-500/30">
+                <div class="p-5 rounded-2xl slds-card">
                     <span class="text-xs font-mono text-emerald-400 font-bold">LAYER 3</span>
-                    <h3 class="text-base font-bold text-white mt-1">Fail-Safe Actuation</h3>
-                    <ul class="mt-3 space-y-2 text-xs text-slate-400 font-mono">
+                    <h3 class="text-base font-bold text-[#F2F4F8] mt-1">Fail-Safe Actuation</h3>
+                    <ul class="mt-3 space-y-2 text-xs text-[#9BA1B0] font-mono">
                         <li>• 12V Solenoid Interlock Bolt</li>
                         <li>• 85dB Piercing Siren</li>
                         <li>• Hardware Relay Isolation</li>
@@ -343,10 +375,10 @@
                     </ul>
                 </div>
 
-                <div class="p-5 rounded-2xl bg-slate-900/80 border border-purple-500/30">
+                <div class="p-5 rounded-2xl slds-card">
                     <span class="text-xs font-mono text-purple-400 font-bold">LAYER 4</span>
-                    <h3 class="text-base font-bold text-white mt-1">Mesh & Command</h3>
-                    <ul class="mt-3 space-y-2 text-xs text-slate-400 font-mono">
+                    <h3 class="text-base font-bold text-[#F2F4F8] mt-1">Mesh & Command</h3>
+                    <ul class="mt-3 space-y-2 text-xs text-[#9BA1B0] font-mono">
                         <li>• ESP-NOW RF Mesh (500m)</li>
                         <li>• 3D WebGL Digital Twin</li>
                         <li>• OSHA 1910 CSV Audit</li>
@@ -362,41 +394,41 @@
         <section class="slide flex-col justify-center space-y-6" data-slide="6">
             <div>
                 <span class="text-xs font-mono text-emerald-400 font-extrabold uppercase tracking-wider">05 / MATHEMATICAL INNOVATION</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">On-Device Chemocline Boundary Localization</h2>
-                <p class="text-sm text-slate-400 mt-1">How StrataShield-3D mathematically locates the invisible toxic boundary layer in real-time.</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#F2F4F8] tracking-tight mt-1">On-Device Chemocline Boundary Localization</h2>
+                <p class="text-sm text-[#9BA1B0] mt-1">How StrataShield-3D mathematically locates the invisible toxic boundary layer in real-time.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-                <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
-                    <h3 class="text-base font-bold text-white font-mono">The Spatial Derivative Formula</h3>
-                    <div class="p-4 rounded-xl bg-slate-950 font-mono text-cyan-400 text-sm border border-slate-800">
+                <div class="p-6 rounded-2xl slds-card space-y-4">
+                    <h3 class="text-base font-bold text-[#F2F4F8] font-mono">The Spatial Derivative Formula</h3>
+                    <div class="p-4 rounded-xl bg-[#050608] font-mono text-[#00E5FF] text-sm border border-white/[0.08]">
                         $$\mathcal{G}_{\text{chemocline}} = \max_{z} \left| \frac{\partial C_{\text{H}_2\text{S}}(z)}{\partial z} \right|$$
                     </div>
-                    <p class="text-xs text-slate-300 leading-relaxed">
+                    <p class="text-xs text-[#F2F4F8] leading-relaxed">
                         Rather than testing only against static limits, the ESP32 calculates the discrete rate-of-spatial-change between vertical depth slices ($10\text{ cm}$ resolution).
                     </p>
-                    <p class="text-xs text-slate-400 leading-relaxed">
+                    <p class="text-xs text-[#9BA1B0] leading-relaxed">
                         When the gradient exceeds $50\text{ ppm/meter}$, the system marks the exact <strong>Safe Descent Ceiling</strong> and refuses to allow human movement past that line.
                     </p>
                 </div>
 
-                <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
-                    <h3 class="text-base font-bold text-white font-mono">Empirical Gradient Output</h3>
+                <div class="p-6 rounded-2xl slds-card space-y-3">
+                    <h3 class="text-base font-bold text-[#F2F4F8] font-mono">Empirical Gradient Output</h3>
                     <div class="space-y-2 text-xs font-mono">
-                        <div class="flex justify-between p-2 rounded bg-slate-950">
-                            <span class="text-slate-400">Depth z = 1.0m:</span>
+                        <div class="flex justify-between p-2 rounded bg-[#050608]">
+                            <span class="text-[#7E828C]">Depth z = 1.0m:</span>
                             <span class="text-emerald-400">dC/dz = 1.2 ppm/m (Nominal)</span>
                         </div>
-                        <div class="flex justify-between p-2 rounded bg-slate-950">
-                            <span class="text-slate-400">Depth z = 2.0m:</span>
+                        <div class="flex justify-between p-2 rounded bg-[#050608]">
+                            <span class="text-[#7E828C]">Depth z = 2.0m:</span>
                             <span class="text-emerald-400">dC/dz = 8.4 ppm/m (Advisory)</span>
                         </div>
                         <div class="flex justify-between p-2 rounded bg-red-950/60 border border-red-800">
                             <span class="text-red-300 font-bold">Depth z = 3.2m:</span>
                             <span class="text-red-400 font-bold">dC/dz = 85.8 ppm/m (CHEMOCLINE PEAK)</span>
                         </div>
-                        <div class="flex justify-between p-2 rounded bg-slate-950">
-                            <span class="text-slate-400">Depth z = 4.2m:</span>
+                        <div class="flex justify-between p-2 rounded bg-[#050608]">
+                            <span class="text-[#7E828C]">Depth z = 4.2m:</span>
                             <span class="text-red-500 font-bold">H2S = 123.5 ppm (LETHAL IDLH)</span>
                         </div>
                     </div>
@@ -409,28 +441,28 @@
         <!-- ================================================================== -->
         <section class="slide flex-col justify-center space-y-6" data-slide="7">
             <div>
-                <span class="text-xs font-mono text-red-500 font-extrabold uppercase tracking-wider">06 / SIGNATURE WOW-FACTOR</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">The Physical Zero-Entry Interlock Guarantee</h2>
-                <p class="text-sm text-slate-400 mt-1">Moving beyond passive advisory beepers to physically enforce OSHA compliance.</p>
+                <span class="text-xs font-mono text-[#E30613] font-extrabold uppercase tracking-wider">06 / SIGNATURE WOW-FACTOR</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#F2F4F8] tracking-tight mt-1">The Physical Zero-Entry Interlock Guarantee</h2>
+                <p class="text-sm text-[#9BA1B0] mt-1">Moving beyond passive advisory beepers to physically enforce OSHA compliance.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-4">
-                    <div class="w-12 h-12 rounded-xl bg-red-600/20 text-red-500 flex items-center justify-center font-bold">
+                <div class="p-6 rounded-2xl slds-card space-y-4">
+                    <div class="w-12 h-12 rounded-xl bg-red-600/20 text-[#E30613] flex items-center justify-center font-bold">
                         <i data-lucide="lock" class="w-6 h-6"></i>
                     </div>
-                    <h3 class="text-lg font-bold text-white">Passive Warnings Fail. Physical Locks Save Lives.</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
+                    <h3 class="text-lg font-bold text-[#F2F4F8]">Passive Warnings Fail. Physical Locks Save Lives.</h3>
+                    <p class="text-xs text-[#9BA1B0] leading-relaxed">
                         In real municipal operations, workers under pressure or habit frequently ignore audible beepers or assume the alarm is a false positive.
                     </p>
-                    <p class="text-xs text-slate-300 leading-relaxed">
+                    <p class="text-xs text-[#F2F4F8] leading-relaxed">
                         StrataShield-3D features an **electromechanical 12V solenoid deadbolt** mounted across the manhole access collar. It mechanically bars the descent ladder and harness winch.
                     </p>
                 </div>
 
-                <div class="p-6 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3 font-mono text-xs">
-                    <h3 class="text-sm font-bold text-white font-sans">OSHA 29 CFR 1910.146 Certification Invariant</h3>
-                    <div class="p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 space-y-1.5">
+                <div class="p-6 rounded-2xl slds-card space-y-3 font-mono text-xs">
+                    <h3 class="text-sm font-bold text-[#F2F4F8] font-sans">OSHA 29 CFR 1910.146 Certification Invariant</h3>
+                    <div class="p-3.5 rounded-xl bg-[#050608] border border-white/[0.08] text-[#9BA1B0] space-y-1.5">
                         <p class="text-emerald-400 font-bold">ALL Slices Must Meet:</p>
                         <p>1. Hydrogen Sulfide &lt; 10.0 ppm</p>
                         <p>2. Carbon Monoxide &lt; 25.0 ppm</p>
@@ -450,13 +482,13 @@
         <section class="slide flex-col justify-center space-y-6" data-slide="8">
             <div>
                 <span class="text-xs font-mono text-amber-400 font-extrabold uppercase tracking-wider">07 / ECONOMIC DISRUPTION</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">₹2,845 vs ₹2,50,000+: 98.8% Cost Reduction</h2>
-                <p class="text-sm text-slate-400 mt-1">Democratizing life-saving technology for Indian municipal contractors and MSMEs.</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#F2F4F8] tracking-tight mt-1">₹2,845 vs ₹2,50,000+: 98.8% Cost Reduction</h2>
+                <p class="text-sm text-[#9BA1B0] mt-1">Democratizing life-saving technology for Indian municipal contractors and MSMEs.</p>
             </div>
 
             <div class="overflow-x-auto">
-                <table class="w-full text-xs font-mono text-left bg-slate-900/80 rounded-2xl border border-slate-800">
-                    <thead class="text-slate-400 border-b border-slate-800 uppercase text-[10px]">
+                <table class="w-full text-xs font-mono text-left slds-card rounded-2xl">
+                    <thead class="text-[#7E828C] border-b border-white/[0.08] uppercase text-[10px]">
                         <tr>
                             <th class="p-3">Component</th>
                             <th class="p-3">Specification</th>
@@ -465,47 +497,47 @@
                             <th class="p-3">Cost (USD)</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-800/60 text-slate-300">
+                    <tbody class="divide-y divide-white/[0.05] text-[#9BA1B0]">
                         <tr>
-                            <td class="p-3 font-bold text-white">ESP32-WROOM-32</td>
+                            <td class="p-3 font-semibold text-[#F2F4F8]">ESP32-WROOM-32</td>
                             <td class="p-3">Dual-Core 240MHz</td>
                             <td class="p-3">TinyML Inference & FreeRTOS</td>
-                            <td class="p-3 font-bold text-cyan-400">₹420</td>
+                            <td class="p-3 font-bold text-[#00E5FF]">₹420</td>
                             <td class="p-3">$5.06</td>
                         </tr>
                         <tr>
-                            <td class="p-3 font-bold text-white">MQ Gas Sensor Suite</td>
+                            <td class="p-3 font-semibold text-[#F2F4F8]">MQ Gas Sensor Suite</td>
                             <td class="p-3">MQ-136, MQ-7, MQ-4</td>
                             <td class="p-3">H2S, CO, CH4 Multi-Gas</td>
-                            <td class="p-3 font-bold text-cyan-400">₹465</td>
+                            <td class="p-3 font-bold text-[#00E5FF]">₹465</td>
                             <td class="p-3">$5.60</td>
                         </tr>
                         <tr>
-                            <td class="p-3 font-bold text-white">Reeling Winch Drive</td>
+                            <td class="p-3 font-semibold text-[#F2F4F8]">Reeling Winch Drive</td>
                             <td class="p-3">28BYJ-48 + ULN2003</td>
                             <td class="p-3">Automated Vertical Descent</td>
-                            <td class="p-3 font-bold text-cyan-400">₹185</td>
+                            <td class="p-3 font-bold text-[#00E5FF]">₹185</td>
                             <td class="p-3">$2.23</td>
                         </tr>
                         <tr>
-                            <td class="p-3 font-bold text-white">Solenoid Interlock</td>
+                            <td class="p-3 font-semibold text-[#F2F4F8]">Solenoid Interlock</td>
                             <td class="p-3">12V Heavy-Duty Bolt</td>
                             <td class="p-3">Physical Ingress Lock</td>
-                            <td class="p-3 font-bold text-cyan-400">₹240</td>
+                            <td class="p-3 font-bold text-[#00E5FF]">₹240</td>
                             <td class="p-3">$2.89</td>
                         </tr>
                         <tr>
-                            <td class="p-3 font-bold text-white">Power Subsystem</td>
+                            <td class="p-3 font-semibold text-[#F2F4F8]">Power Subsystem</td>
                             <td class="p-3">18650 Li-Ion + BMS</td>
                             <td class="p-3">26.0 Hours Battery Life</td>
-                            <td class="p-3 font-bold text-cyan-400">₹340</td>
+                            <td class="p-3 font-bold text-[#00E5FF]">₹340</td>
                             <td class="p-3">$4.10</td>
                         </tr>
                         <tr>
-                            <td class="p-3 font-bold text-white">Rugged Housing & Misc</td>
+                            <td class="p-3 font-semibold text-[#F2F4F8]">Rugged Housing & Misc</td>
                             <td class="p-3">IP54 Enclosure & Tether</td>
                             <td class="p-3">Subterranean Protection</td>
-                            <td class="p-3 font-bold text-cyan-400">₹1,195</td>
+                            <td class="p-3 font-bold text-[#00E5FF]">₹1,195</td>
                             <td class="p-3">$14.40</td>
                         </tr>
                         <tr class="bg-red-950/40 font-bold text-sm">
@@ -526,29 +558,29 @@
         <section class="slide flex-col justify-center space-y-6" data-slide="9">
             <div>
                 <span class="text-xs font-mono text-red-500 font-extrabold uppercase tracking-wider">08 / STRATEGIC ALIGNMENT</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">Honeywell Technologies & BharatCares Partnership Fit</h2>
-                <p class="text-sm text-slate-400 mt-1">Bridging global industrial leadership with grassroots humanitarian impact.</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#F2F4F8] tracking-tight mt-1">Honeywell Technologies & BharatCares Partnership Fit</h2>
+                <p class="text-sm text-[#9BA1B0] mt-1">Bridging global industrial leadership with grassroots humanitarian impact.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="p-6 rounded-2xl bg-slate-900/80 border border-red-500/30 space-y-3">
+                <div class="p-6 rounded-2xl slds-card space-y-3">
                     <span class="text-xs font-mono text-red-400 font-extrabold uppercase">HONEYWELL INDUSTRIAL FIT</span>
-                    <h3 class="text-lg font-bold text-white">Complements Honeywell Process Solutions & Analytics</h3>
-                    <p class="text-xs text-slate-300 leading-relaxed">
+                    <h3 class="text-lg font-bold text-[#F2F4F8]">Complements Honeywell Process Solutions & Analytics</h3>
+                    <p class="text-xs text-[#9BA1B0] leading-relaxed">
                         Honeywell is the global leader in industrial gas sensing (Honeywell Analytics, BW Technologies, RAE Systems). StrataShield-3D demonstrates how Honeywell's industrial safety philosophy can be miniaturized and deployed into budget-constrained municipal sectors.
                     </p>
-                    <p class="text-xs text-slate-400 font-mono">
+                    <p class="text-xs text-[#7E828C] font-mono">
                         Direct Technology Synergies: Honeywell Forge Connected Worker, Plant Mesh Telemetry, Industrial Solenoid Valves.
                     </p>
                 </div>
 
-                <div class="p-6 rounded-2xl bg-slate-900/80 border border-cyan-500/30 space-y-3">
-                    <span class="text-xs font-mono text-cyan-400 font-extrabold uppercase">BHARATCARES SOCIAL IMPACT</span>
-                    <h3 class="text-lg font-bold text-white">Eradicating Sanitation Fatalities in India</h3>
-                    <p class="text-xs text-slate-300 leading-relaxed">
+                <div class="p-6 rounded-2xl slds-card space-y-3">
+                    <span class="text-xs font-mono text-[#00E5FF] font-extrabold uppercase">BHARATCARES SOCIAL IMPACT</span>
+                    <h3 class="text-lg font-bold text-[#F2F4F8]">Eradicating Sanitation Fatalities in India</h3>
+                    <p class="text-xs text-[#9BA1B0] leading-relaxed">
                         BharatCares champions community upliftment and worker empowerment. StrataShield-3D provides an affordable, indigenous engineering solution to eliminate the human rights tragedy of manual scavenging and hazardous manhole cleaning.
                     </p>
-                    <p class="text-xs text-slate-400 font-mono">
+                    <p class="text-xs text-[#7E828C] font-mono">
                         National Framework Alignment: Swachh Bharat Mission, NAMASTE Scheme (National Action for Mechanised Sanitation Ecosystem).
                     </p>
                 </div>
@@ -561,24 +593,24 @@
         <section class="slide flex-col justify-center space-y-6" data-slide="10">
             <div>
                 <span class="text-xs font-mono text-emerald-400 font-extrabold uppercase tracking-wider">09 / JURY DEFENSE & ROADMAP</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">Adversarial Defense Playbook & Future Roadmap</h2>
-                <p class="text-sm text-slate-400 mt-1">Forensic self-awareness and industrial scaling pathway.</p>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-[#F2F4F8] tracking-tight mt-1">Adversarial Defense Playbook & Future Roadmap</h2>
+                <p class="text-sm text-[#9BA1B0] mt-1">Forensic self-awareness and industrial scaling pathway.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Jury Traps & Verified Answers -->
-                <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
-                    <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">Jury Traps & Verified Defense</h3>
+                <div class="p-5 rounded-2xl slds-card space-y-3">
+                    <h3 class="text-sm font-bold text-[#F2F4F8] font-mono uppercase tracking-wider">Jury Traps & Verified Defense</h3>
                     <div class="space-y-2 text-xs">
-                        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+                        <div class="p-3 rounded-xl bg-[#050608] border border-white/[0.08]">
                             <span class="text-amber-400 font-bold">Judge: "Why not use a drone or tracked robot?"</span>
-                            <p class="text-slate-300 mt-1">
+                            <p class="text-[#9BA1B0] mt-1">
                                 <em>Answer:</em> Drones create violent rotor prop-wash that mixes stratified gas layers, destroying accurate stratification profiling. A vertical cable sonde measures the undisturbed natural density gradient.
                             </p>
                         </div>
-                        <div class="p-3 rounded-xl bg-slate-950 border border-slate-800">
+                        <div class="p-3 rounded-xl bg-[#050608] border border-white/[0.08]">
                             <span class="text-amber-400 font-bold">Judge: "What if the winch gets stuck on debris?"</span>
-                            <p class="text-slate-300 mt-1">
+                            <p class="text-[#9BA1B0] mt-1">
                                 <em>Answer:</em> The stepper motor driver features back-EMF current-spike detection. If mechanical obstruction occurs, the winch reverses 15cm and enters failsafe lock.
                             </p>
                         </div>
@@ -586,26 +618,26 @@
                 </div>
 
                 <!-- 3-Phase Roadmap -->
-                <div class="p-5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
-                    <h3 class="text-sm font-bold text-white font-mono uppercase tracking-wider">Engineering Roadmap</h3>
+                <div class="p-5 rounded-2xl slds-card space-y-3">
+                    <h3 class="text-sm font-bold text-[#F2F4F8] font-mono uppercase tracking-wider">Engineering Roadmap</h3>
                     <div class="space-y-2 text-xs font-mono">
-                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
-                            <span class="text-cyan-400 font-bold">Phase 1 (Current):</span>
-                            <span class="text-slate-300"> ESP32 dual-core prototype, 3D WebGL dashboard, 5/5 automated test pass.</span>
+                        <div class="p-2.5 rounded-lg bg-[#050608] border border-white/[0.08]">
+                            <span class="text-[#00E5FF] font-bold">Phase 1 (Current):</span>
+                            <span class="text-[#9BA1B0]"> ESP32 dual-core prototype, 3D WebGL dashboard, 5/5 automated test pass.</span>
                         </div>
-                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
-                            <span class="text-cyan-400 font-bold">Phase 2 (Q1 2027):</span>
-                            <span class="text-slate-300"> ATEX Zone 0 optical NDIR gas sensors for explosive environments.</span>
+                        <div class="p-2.5 rounded-lg bg-[#050608] border border-white/[0.08]">
+                            <span class="text-[#00E5FF] font-bold">Phase 2 (Q1 2027):</span>
+                            <span class="text-[#9BA1B0]"> ATEX Zone 0 optical NDIR gas sensors for explosive environments.</span>
                         </div>
-                        <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800">
-                            <span class="text-cyan-400 font-bold">Phase 3 (Q3 2027):</span>
-                            <span class="text-slate-300"> Municipal field trials across Pune Municipal Corporation (PMC).</span>
+                        <div class="p-2.5 rounded-lg bg-[#050608] border border-white/[0.08]">
+                            <span class="text-[#00E5FF] font-bold">Phase 3 (Q3 2027):</span>
+                            <span class="text-[#9BA1B0]"> Municipal field trials across Pune Municipal Corporation (PMC).</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="pt-2 text-center text-xs font-mono text-slate-400">
+            <div class="pt-2 text-center text-xs font-mono text-[#7E828C]">
                 Live Prototype Repository: <a href="https://github.com/adityanimbalkar9699-max/aerosentinel-honeywell" target="_blank" class="text-red-400 underline">github.com/adityanimbalkar9699-max/aerosentinel-honeywell</a>
             </div>
         </section>
@@ -613,14 +645,14 @@
     </main>
 
     <!-- Bottom Executive Speaker Notes Drawer (Collapsible) -->
-    <div id="speakerNotesDrawer" class="no-print bg-[#0B0F19] border-t border-slate-800 px-6 py-4 transition-all duration-300 hidden">
+    <div id="speakerNotesDrawer" class="no-print bg-[#0B0C10] border-t border-white/[0.08] px-6 py-4 transition-all duration-300 hidden">
         <div class="max-w-7xl mx-auto flex items-start space-x-4">
-            <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold flex-shrink-0 mt-0.5">
+            <div class="w-8 h-8 rounded-lg bg-cyan-500/20 text-[#00E5FF] flex items-center justify-center font-bold flex-shrink-0 mt-0.5">
                 <i data-lucide="message-square" class="w-4 h-4"></i>
             </div>
             <div class="flex-1">
-                <span class="text-[10px] font-mono text-cyan-400 uppercase tracking-wider font-extrabold block">EXECUTIVE SPEAKER SCRIPT (WHAT YOU SHOULD SAY TO THE MENTORS)</span>
-                <p id="speakerScriptText" class="text-xs text-slate-300 mt-1 leading-relaxed font-sans">
+                <span class="text-[10px] font-mono text-[#00E5FF] uppercase tracking-wider font-extrabold block">EXECUTIVE SPEAKER SCRIPT (WHAT YOU SHOULD SAY TO THE MENTORS)</span>
+                <p id="speakerScriptText" class="text-xs text-[#9BA1B0] mt-1 leading-relaxed font-sans">
                     "Respected mentors and jury members: Today I am presenting StrataShield-3D, an autonomous life-safety system developed under the Honeywell Future Skills Edge Program. While conventional projects settle for basic gas detectors, StrataShield-3D tackles the root physical cause of confined space deaths: vertical gas density stratification..."
                 </p>
             </div>
@@ -630,6 +662,24 @@
     <!-- Slide Deck Controller Script -->
     <script>
         lucide.createIcons();
+
+        // Web Audio Haptic Synthesizer
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playSlideClick(freq = 750, dur = 0.03) {
+            try {
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + dur);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + dur);
+            } catch(e) {}
+        }
 
         let currentSlide = 1;
         const totalSlides = 10;
@@ -648,6 +698,7 @@
         };
 
         function showSlide(n) {
+            playSlideClick(800 + n * 40, 0.025);
             document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
             const target = document.querySelector(`.slide[data-slide="${n}"]`);
             if (target) {
@@ -668,14 +719,15 @@
         }
 
         function toggleSpeakerNotes() {
+            playSlideClick(950, 0.03);
             const drawer = document.getElementById('speakerNotesDrawer');
             const btn = document.getElementById('btnNotes');
             if (drawer.classList.contains('hidden')) {
                 drawer.classList.remove('hidden');
-                btn.className = "px-3 py-1.5 rounded-xl border border-cyan-500/50 bg-cyan-500/10 text-xs font-semibold text-cyan-300 flex items-center space-x-1.5 transition-all";
+                btn.className = "px-3 py-1.5 rounded-xl border border-cyan-500/50 bg-cyan-500/10 text-xs font-semibold text-[#00E5FF] flex items-center space-x-1.5 transition-all";
             } else {
                 drawer.classList.add('hidden');
-                btn.className = "px-3 py-1.5 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 flex items-center space-x-1.5 transition-all";
+                btn.className = "px-3 py-1.5 rounded-xl border border-white/[0.08] bg-[#101218] hover:bg-white/[0.06] text-xs font-semibold text-[#F2F4F8] flex items-center space-x-1.5 transition-all";
             }
         }
 
